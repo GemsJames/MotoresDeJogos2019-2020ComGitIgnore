@@ -40,6 +40,15 @@ namespace Pipeline_test
             set { busyShips = value; }
         }
 
+        private static Ship playerShip;
+
+        public static Ship PlayerShip
+        {
+            get { return playerShip; }
+            set { playerShip = value; }
+        }
+
+
         private static List<Ship> tempShips;
 
         private static double tempTimer;
@@ -64,24 +73,26 @@ namespace Pipeline_test
 
         }
 
-        public static void LoadContent(ContentManager content)
+        public static void LoadContent(ContentManager content, Random random, ShipModel model)
         {
             for (int i = 0; i < shipNumber; i++)
             {
-                AvailableShips.Add(new Ship(content));
+                AvailableShips.Add(new Ship(content,model));
             }
+
+            playerShip = availableShips[random.Next(0,shipNumber)];
         }
 
         //AvailableShips.Add(new Ship(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), content, 0.5f, 0.01f));
 
-        public static void Update(GameTime gameTime, Random random, ContentManager content)
+        public static void Update(GameTime gameTime, Random random, ContentManager content, ShipModel model)
         {
             tempTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
             if (tempTimer >= spawnTime)
             {
                 tempTimer -= spawnTime;
-                SpawnShip(random, content);
+                SpawnShip(random, content, model);
             }
 
             foreach (Ship ship in busyShips)
@@ -120,7 +131,7 @@ namespace Pipeline_test
 
         }
 
-        public static void SpawnShip(Random random, ContentManager content)
+        public static void SpawnShip(Random random, ContentManager content, ShipModel model)
         {
             if(availableShips.Count() > 0)
             {
@@ -130,7 +141,7 @@ namespace Pipeline_test
             }
             else
             {
-                busyShips.Add(new Ship(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), content, 0.5f, 0.01f, true));
+                busyShips.Add(new Ship(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), content, 0.5f, 0.01f, true, model));
                 MessageBus.InsertNewMessage(new ConsoleMessage("Spawned ship from scratch!"));
             }
         }
@@ -140,11 +151,11 @@ namespace Pipeline_test
             ship.Alive = false;
         }
 
-        public static void Draw(Camera camera)
+        public static void Draw()
         {
             foreach (Ship ship in busyShips)
             {
-                ship.Draw(camera.View, camera.Projection);
+                ship.Draw(Camera.View, Camera.Projection);
             }
         }
 

@@ -13,9 +13,9 @@ namespace Pipeline_test
     public class Ship
     {
         #region Variables
-        private Model model;
+        private ShipModel model;
 
-        public Model Model
+        public ShipModel Model
         {
             get { return model; }
             set { model = value; }
@@ -72,7 +72,7 @@ namespace Pipeline_test
 
         #endregion
 
-        public Ship(ContentManager contentManager)
+        public Ship(ContentManager contentManager, ShipModel model)
         {
             this.position = Vector3.Zero;
             this.world = Matrix.CreateTranslation(position);
@@ -80,7 +80,7 @@ namespace Pipeline_test
             this.scale = 0;
             this.alive = false;
 
-            LoadContent(contentManager);
+            this.model = model;
 
             //foreach (ModelMesh mesh in this.model.Meshes)
             //{
@@ -89,7 +89,7 @@ namespace Pipeline_test
             //boundingSphere.Radius *= scale;
         }
 
-        public Ship(Vector3 position, ContentManager contentManager, float speed, float scale, bool alive)
+        public Ship(Vector3 position, ContentManager contentManager, float speed, float scale, bool alive, ShipModel model)
         {
             this.position = position;
             this.world = Matrix.CreateTranslation(position);
@@ -97,9 +97,9 @@ namespace Pipeline_test
             this.scale = scale;
             this.alive = alive;
 
-            LoadContent(contentManager);
+            this.model = model;
 
-            foreach(ModelMesh mesh in this.model.Meshes)
+            foreach (ModelMesh mesh in this.model.Model.Meshes)
             {
                 boundingSphere = BoundingSphere.CreateMerged(this.boundingSphere, mesh.BoundingSphere);
             }
@@ -114,17 +114,17 @@ namespace Pipeline_test
             this.scale = scale;
             this.alive = true;
 
-            foreach (ModelMesh mesh in this.model.Meshes)
+            foreach (ModelMesh mesh in this.model.Model.Meshes)
             {
                 boundingSphere = BoundingSphere.CreateMerged(this.boundingSphere, mesh.BoundingSphere);
             }
             boundingSphere.Radius *= scale;
         }
 
-        public void LoadContent(ContentManager contentManager)
-        {
-            model = contentManager.Load<Model>("p1_saucer");
-        }
+        //public void LoadContent(ContentManager contentManager)
+        //{
+        //    model = contentManager.Load<Model>("p1_saucer");
+        //}
 
         public void Update(GameTime gameTime)
         {
@@ -142,7 +142,7 @@ namespace Pipeline_test
 
         public void Draw(Matrix View, Matrix Projection)
         {
-            foreach (ModelMesh mesh in model.Meshes)
+            foreach (ModelMesh mesh in model.Model.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {

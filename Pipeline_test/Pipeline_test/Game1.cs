@@ -18,8 +18,8 @@ namespace Pipeline_test
 
         ConsoleWriter consoleWriter;
 
-        Camera camera;
         List<Ship> ships;
+        ShipModel shipModel;
 
         Random random;
         
@@ -44,7 +44,6 @@ namespace Pipeline_test
         /// </summary>
         protected override void Initialize()
         {
-            camera = new Camera(new Vector3(0,0,50), graphics);
             random = new Random();
             ships = new List<Ship>();
 
@@ -53,6 +52,7 @@ namespace Pipeline_test
             MessageBus.Initialize();
             consoleWriter = new ConsoleWriter();
             ShipManager.Initialize();
+            Camera.Initialize(GraphicsDevice);
             //StringConc.Initialize();
             //
            
@@ -66,7 +66,9 @@ namespace Pipeline_test
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            ShipManager.LoadContent(Content);
+            shipModel = new ShipModel(Content, "p1_saucer");
+
+            ShipManager.LoadContent(Content, random, shipModel);
         }
 
         protected override void UnloadContent()
@@ -82,7 +84,8 @@ namespace Pipeline_test
             //Update Classes
             MessageBus.Update();
             consoleWriter.Update();
-            ShipManager.Update(gameTime, random, Content);
+            ShipManager.Update(gameTime, random, Content, shipModel);
+            Camera.Update(gameTime, GraphicsDevice,ShipManager.PlayerShip);
             //
 
             //Memória
@@ -96,9 +99,9 @@ namespace Pipeline_test
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            ShipManager.Draw(camera);
+            ShipManager.Draw();
 
-            DebugShapeRenderer.Draw(gameTime, camera.View, camera.Projection);
+            DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
 
             base.Draw(gameTime);
         }
