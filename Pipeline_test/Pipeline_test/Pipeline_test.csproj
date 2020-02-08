@@ -55,6 +55,7 @@
     <Compile Include="Ship.cs" />
     <Compile Include="ShipManager.cs" />
     <Compile Include="ShipModel.cs" />
+    <Compile Include="Skybox.cs" />
     <Compile Include="StringConc.cs" />
   </ItemGroup>
   <ItemGroup>

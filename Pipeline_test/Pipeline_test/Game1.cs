@@ -21,6 +21,8 @@ namespace Pipeline_test
         List<Ship> ships;
         ShipModel shipModel;
 
+        Skybox skybox;
+
         Random random;
         
         public Game1()
@@ -51,6 +53,7 @@ namespace Pipeline_test
             DebugShapeRenderer.Initialize(GraphicsDevice);
             MessageBus.Initialize();
             consoleWriter = new ConsoleWriter();
+            skybox = new Skybox(Content);
             ShipManager.Initialize();
             Camera.Initialize(GraphicsDevice);
             //StringConc.Initialize();
@@ -98,6 +101,8 @@ namespace Pipeline_test
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            skybox.Draw(Camera.View, Camera.Projection, Camera.getPosition());
 
             ShipManager.Draw();
 
