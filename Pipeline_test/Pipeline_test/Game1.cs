@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using Pipeline_test.Messages;
+using Pipeline_test.Commands;
 
 namespace Pipeline_test
 {
@@ -24,6 +25,10 @@ namespace Pipeline_test
         Skybox skybox;
 
         Random random;
+
+        InputManager player1InputManager;
+        List<Command> commands;
+
         
         public Game1()
         {
@@ -56,7 +61,7 @@ namespace Pipeline_test
             skybox = new Skybox(Content);
             ShipManager.Initialize();
             Camera.Initialize(GraphicsDevice);
-            //StringConc.Initialize();
+            player1InputManager = new InputManager(Keys.W, Keys.A, Keys.D, Keys.E);
             //
            
             MessageBus.InsertNewMessage(new ConsoleMessage("Game Initiated!"));
@@ -84,15 +89,16 @@ namespace Pipeline_test
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            //Update Classes
             MessageBus.Update();
             consoleWriter.Update();
             ShipManager.Update(gameTime, random, Content, shipModel);
             Camera.Update(gameTime, GraphicsDevice,ShipManager.PlayerShip);
-            //
 
-            //Memória
-
+            commands = player1InputManager.UpdateInputManager();
+            foreach(Command command in commands)
+            {
+                command.Execute(ShipManager.PlayerShip);
+            }
 
             base.Update(gameTime);
         }
