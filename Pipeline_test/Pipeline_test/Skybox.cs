@@ -30,7 +30,7 @@ namespace Pipeline_test
         /// The size of the cube, used so that we can resize the box
         /// for different sized environments.
         /// </summary>
-        private float size = Camera.farPlane / 2f;
+        private float size = Camera.farPlane /2f;
 
         /// <summary>
         /// Creates a new skybox

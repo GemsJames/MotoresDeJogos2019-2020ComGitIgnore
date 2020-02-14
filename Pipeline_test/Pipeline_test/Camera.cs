@@ -75,7 +75,7 @@ namespace Pipeline_test
 
         static public void Initialize(GraphicsDevice graphics)
         {
-            tipoCamera = TipoCamera.ThirdPerson;
+            tipoCamera = TipoCamera.Free;
 
             //farPlane = Terrain.altura + (Terrain.altura / 2);
 
