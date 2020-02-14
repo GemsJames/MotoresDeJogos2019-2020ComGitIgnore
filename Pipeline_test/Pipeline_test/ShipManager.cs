@@ -81,9 +81,12 @@ namespace Pipeline_test
             }
 
             playerShip = availableShips[random.Next(0,shipNumber)];
-        }
 
-        //AvailableShips.Add(new Ship(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), content, 0.5f, 0.01f));
+            playerShip.SpawnShip(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), 5f, 0.01f);
+            busyShips.Add(playerShip);
+            availableShips.Remove(playerShip);
+
+        }
 
         public static void Update(GameTime gameTime, Random random, ContentManager content, ShipModel model)
         {
@@ -92,7 +95,7 @@ namespace Pipeline_test
             if (tempTimer >= spawnTime)
             {
                 tempTimer -= spawnTime;
-                SpawnShip(random, content, model);
+                SpawnShip(random, content);
             }
 
             foreach (Ship ship in busyShips)
@@ -111,11 +114,7 @@ namespace Pipeline_test
             }
             tempShips.Clear();
 
-            MemoryDebug.Update();
-
-            
-            //MessageBus.InsertNewMessage(new ConsoleMessage("Available ships: " + availableShips.Count + " ,Busy Ships: " + busyShips.Count + " Total: " + (busyShips.Count + availableShips.Count)));
-            
+            MemoryDebug.Update();            
 
             StringBuilder msg = new StringBuilder("Available ships: ");
             msg.Append(availableShips.Count.ToString());
@@ -126,12 +125,9 @@ namespace Pipeline_test
             string finalMsg = msg.ToString();
         
             MessageBus.InsertNewMessage(new ConsoleMessage(finalMsg));
-            
-
-
         }
 
-        public static void SpawnShip(Random random, ContentManager content, ShipModel model)
+        public static void SpawnShip(Random random, ContentManager content)
         {
             if(availableShips.Count() > 0)
             {
@@ -146,6 +142,8 @@ namespace Pipeline_test
             }
         }
 
+
+
         public static void ObliterateShip(Ship ship)
         {
             ship.Alive = false;
@@ -157,6 +155,8 @@ namespace Pipeline_test
             {
                 ship.Draw(Camera.View, Camera.Projection);
             }
+
+            playerShip.Draw(Camera.View, Camera.Projection);
         }
 
     }

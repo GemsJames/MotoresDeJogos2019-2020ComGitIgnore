@@ -69,14 +69,61 @@ namespace Pipeline_test
             set { boundingSphere = value; }
         }
 
+        private Vector3 velocity;
+
+        public Vector3 Velocity
+        {
+            get { return velocity; }
+            set { velocity = value; }
+        }
+
+        private Quaternion rotation;
+
+        public Quaternion Rotation
+        {
+            get { return rotation; }
+            set { rotation = value; }
+        }
+
+        private float yaw;
+
+        public float Yaw
+        {
+            get { return yaw; }
+            set { yaw = value; }
+        }
+
+        private float pitch;
+
+        public float Pitch
+        {
+            get { return pitch; }
+            set { pitch = value; }
+        }
+
+        private int roll;
+
+        public int Roll
+        {
+            get { return roll; }
+            set { roll = value; }
+        }
+
+
+        private Vector3 defaultSpeed;
+
+
         #endregion
 
-        public Ship(ContentManager contentManager, /*ShipModel model,*/ float scale)
+        public Ship(ContentManager contentManager, float scale)
         {
             this.position = Vector3.Zero;
             this.world = Matrix.CreateTranslation(position);
             this.speed = 0;
             this.scale = 0;
+            this.yaw = 0;
+            this.pitch = 0;
+            this.roll = 0;
             this.alive = false;
 
             //this.model = model;
@@ -95,8 +142,11 @@ namespace Pipeline_test
             this.speed = speed;
             this.scale = scale;
             this.alive = alive;
-
-            //this.model = model;
+            this.yaw = 0;
+            this.pitch = 0;
+            this.roll = 0;
+            velocity = Vector3.Forward;
+            defaultSpeed = new Vector3(0, 0, speed);
 
             foreach (ModelMesh mesh in ShipForm.Model.Model.Meshes)
             {
@@ -127,16 +177,28 @@ namespace Pipeline_test
 
         public void Update(GameTime gameTime)
         {
-            position.Z -= speed * gameTime.ElapsedGameTime.Milliseconds;
+            //position.Z -= speed * gameTime.ElapsedGameTime.Milliseconds;
 
-            world = Matrix.CreateTranslation(position);
+            //world = Matrix.CreateTranslation(position);
 
+            //boundingSphere.Center = position;
+
+            //if(position.Z <= -2000)
+            //{
+            //    ShipManager.ObliterateShip(this);
+            //}
+            velocity -= new Vector3(0, 0, 1);
+
+            velocity.Normalize();
+            velocity *= speed;
+
+            rotation = Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll);
+            position += Vector3.Transform(velocity, rotation);
+
+            world = Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(position);
             boundingSphere.Center = position;
 
-            if(position.Z <= -2000)
-            {
-                ShipManager.ObliterateShip(this);
-            }
+
         }
 
         public void Draw(Matrix View, Matrix Projection)
