@@ -76,6 +76,8 @@ namespace Pipeline_test
 
             shipModel = new ShipModel(Content, "p1_saucer");
 
+            ShipForm.Loadcontent(shipModel);
+
             ShipManager.LoadContent(Content, random, shipModel);
         }
 
