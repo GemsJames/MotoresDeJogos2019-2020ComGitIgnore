@@ -8,6 +8,15 @@ namespace Pipeline_test.Messages
 {
     public static class  MessageBus
     {
+
+        private static string msg;
+
+        public static string Msg
+        {
+            get { return msg; }
+            set { msg = value; }
+        }
+
         private static List<Message> messages;
 
         public static List<Message> Messages
@@ -21,7 +30,7 @@ namespace Pipeline_test.Messages
         public static void Initialize()
         {
             messages = new List<Message>(100);
-
+            msg = string.Format("Message number:", messages.Count().ToString());
             messagesToReturn = new List<Message>(100);
         }
 
@@ -34,7 +43,13 @@ namespace Pipeline_test.Messages
         {
            messagesToReturn.Clear();
 
-           MessageBus.InsertNewMessage(new ConsoleMessage("Message number:" + messages.Count()));
+            StringBuilder msg = new StringBuilder("Message number:");
+            msg.Append(messages.Count().ToString());
+            string finalmsg = msg.ToString();
+
+
+            MessageBus.InsertNewMessage(new ConsoleMessage(finalmsg));
+           //MessageBus.InsertNewMessage(new ConsoleMessage("Message number:" + messages.Count()));
         }
 
         public static List<Message> GetMessagesOfType(MessageType messageType)
