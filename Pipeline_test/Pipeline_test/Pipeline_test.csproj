@@ -53,6 +53,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ship.cs" />
+    <Compile Include="ShipForm.cs" />
     <Compile Include="ShipManager.cs" />
     <Compile Include="ShipModel.cs" />
     <Compile Include="Skybox.cs" />

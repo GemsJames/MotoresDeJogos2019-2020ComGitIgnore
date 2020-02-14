@@ -13,13 +13,12 @@ namespace Pipeline_test
     public class Ship
     {
         #region Variables
-        private ShipModel model;
 
-        public ShipModel Model
-        {
-            get { return model; }
-            set { model = value; }
-        }
+        //public ShipModel Model
+        //{
+        //    get { return model; }
+        //    set { model = value; }
+        //}
 
         private Matrix world;
 
@@ -45,14 +44,14 @@ namespace Pipeline_test
             set { speed = value; }
         }
 
-        private float scale;
+        public float scale;
 
         public float Scale
         {
             get { return scale; }
             set { scale = value; }
         }
-
+        
         private bool alive;
 
         public bool Alive
@@ -72,7 +71,7 @@ namespace Pipeline_test
 
         #endregion
 
-        public Ship(ContentManager contentManager, ShipModel model)
+        public Ship(ContentManager contentManager, /*ShipModel model,*/ float scale)
         {
             this.position = Vector3.Zero;
             this.world = Matrix.CreateTranslation(position);
@@ -80,7 +79,7 @@ namespace Pipeline_test
             this.scale = 0;
             this.alive = false;
 
-            this.model = model;
+            //this.model = model;
 
             //foreach (ModelMesh mesh in this.model.Meshes)
             //{
@@ -89,7 +88,7 @@ namespace Pipeline_test
             //boundingSphere.Radius *= scale;
         }
 
-        public Ship(Vector3 position, ContentManager contentManager, float speed, float scale, bool alive, ShipModel model)
+        public Ship(Vector3 position, ContentManager contentManager, float speed, float scale, bool alive/*, ShipModel model*/)
         {
             this.position = position;
             this.world = Matrix.CreateTranslation(position);
@@ -97,9 +96,9 @@ namespace Pipeline_test
             this.scale = scale;
             this.alive = alive;
 
-            this.model = model;
+            //this.model = model;
 
-            foreach (ModelMesh mesh in this.model.Model.Meshes)
+            foreach (ModelMesh mesh in ShipForm.Model.Model.Meshes)
             {
                 boundingSphere = BoundingSphere.CreateMerged(this.boundingSphere, mesh.BoundingSphere);
             }
@@ -114,7 +113,7 @@ namespace Pipeline_test
             this.scale = scale;
             this.alive = true;
 
-            foreach (ModelMesh mesh in this.model.Model.Meshes)
+            foreach (ModelMesh mesh in ShipForm.Model.Model.Meshes)
             {
                 boundingSphere = BoundingSphere.CreateMerged(this.boundingSphere, mesh.BoundingSphere);
             }
@@ -142,7 +141,7 @@ namespace Pipeline_test
 
         public void Draw(Matrix View, Matrix Projection)
         {
-            foreach (ModelMesh mesh in model.Model.Meshes)
+            foreach (ModelMesh mesh in ShipForm.Model.Model.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {

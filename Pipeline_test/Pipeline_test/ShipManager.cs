@@ -77,7 +77,7 @@ namespace Pipeline_test
         {
             for (int i = 0; i < shipNumber; i++)
             {
-                AvailableShips.Add(new Ship(content,model));
+                AvailableShips.Add(new Ship(content,1));
             }
 
             playerShip = availableShips[random.Next(0,shipNumber)];
@@ -141,7 +141,7 @@ namespace Pipeline_test
             }
             else
             {
-                busyShips.Add(new Ship(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), content, 0.5f, 0.01f, true, model));
+                busyShips.Add(new Ship(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), content, 0.5f, 0.01f, true));
                 MessageBus.InsertNewMessage(new ConsoleMessage("Spawned ship from scratch!"));
             }
         }

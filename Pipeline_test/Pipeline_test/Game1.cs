@@ -53,12 +53,13 @@ namespace Pipeline_test
             DebugShapeRenderer.Initialize(GraphicsDevice);
             MessageBus.Initialize();
             consoleWriter = new ConsoleWriter();
-            skybox = new Skybox(Content);
             ShipManager.Initialize();
             Camera.Initialize(GraphicsDevice);
+            skybox = new Skybox(Content);
+            
             //StringConc.Initialize();
             //
-           
+
             MessageBus.InsertNewMessage(new ConsoleMessage("Game Initiated!"));
 
             base.Initialize();

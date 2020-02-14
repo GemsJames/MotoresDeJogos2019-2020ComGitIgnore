@@ -3,28 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AlienGrab;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-
 namespace Pipeline_test
 {
-    public class ShipModel
+    public static class ShipForm
     {
-        private Model model;
+        private static ShipModel model;
 
-        public Model Model
+        public static ShipModel Model
         {
             get { return model; }
             set { model = value; }
         }
-
-        public ShipModel(ContentManager content, string modelString)
+        
+        public static void Loadcontent(ShipModel model)
         {
-            model = content.Load<Model>(modelString);
+            Model = model;
         }
-
     }
 }
