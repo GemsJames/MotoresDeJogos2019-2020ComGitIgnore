@@ -12,7 +12,31 @@ namespace Pipeline_test.Commands
         public override void Execute(Ship ship)
         {
 
+            ship.Speed += ShipManager.AddSpeed;
+
+
+            if(ship.Speed >= ship.MaxSpeed)
+            {
+                ship.Speed = ship.MaxSpeed;
+            }
+
             MessageBus.InsertNewMessage(new ConsoleMessage("Accelarated"));
+
+        }
+    }
+
+    public class DeAccelarate : Command
+    {
+        public override void Execute(Ship ship)
+        {
+
+            ship.Speed -= ShipManager.AddSpeed;
+
+
+            if (ship.Speed <= 0)
+            {
+                ship.Speed = 0;
+            }
 
         }
     }
@@ -21,6 +45,8 @@ namespace Pipeline_test.Commands
     {
         public override void Execute(Ship ship)
         {
+
+            ship.Yaw += ShipManager.AddYaw;
 
             MessageBus.InsertNewMessage(new ConsoleMessage("Left"));
 
@@ -32,7 +58,32 @@ namespace Pipeline_test.Commands
         public override void Execute(Ship ship)
         {
 
+            ship.Yaw -= ShipManager.AddYaw;
+
             MessageBus.InsertNewMessage(new ConsoleMessage("Right"));
+
+        }
+    }
+
+    public class FaceDown : Command
+    {
+        public override void Execute(Ship ship)
+        {
+            ship.Pitch -= ShipManager.AddPitch;
+
+            MessageBus.InsertNewMessage(new ConsoleMessage("Face DOWN"));
+
+        }
+    }
+
+    public class FaceUp : Command
+    {
+        public override void Execute(Ship ship)
+        {
+
+            ship.Pitch += ShipManager.AddPitch;
+
+            MessageBus.InsertNewMessage(new ConsoleMessage("Face Up"));
 
         }
     }

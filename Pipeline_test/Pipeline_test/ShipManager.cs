@@ -48,6 +48,31 @@ namespace Pipeline_test
             set { playerShip = value; }
         }
 
+        private static float addSpeed;
+
+        public static float AddSpeed
+        {
+            get { return addSpeed; }
+            set { addSpeed = value; }
+        }
+
+        private static float addYaw;
+
+        public static float AddYaw
+        {
+            get { return addYaw; }
+            set { addYaw = value; }
+        }
+
+        private static float addPitch;
+
+        public static float AddPitch
+        {
+            get { return addPitch; }
+            set { addPitch = value; }
+        }
+
+
 
         private static List<Ship> tempShips;
 
@@ -67,7 +92,10 @@ namespace Pipeline_test
             tempShips = new List<Ship>(shipNumber);
 
             tempTimer = 0;
-            spawnTime = 0.01f;
+            spawnTime = 0.001f;
+            addSpeed = 0.25f;
+            addYaw = 0.025f;
+            addPitch = 0.025f;
 
             msg = string.Format("Available ships: , {0}.  ,Busy Ships: {1} ", availableShips.Count.ToString(), busyShips.Count.ToString(), (busyShips.Count + availableShips.Count).ToString());
 
@@ -82,9 +110,16 @@ namespace Pipeline_test
 
             playerShip = availableShips[random.Next(0,shipNumber)];
 
-            playerShip.SpawnShip(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), 5f, 0.01f);
+            playerShip.SpawnShip(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), 0f, 0.01f);
             busyShips.Add(playerShip);
             availableShips.Remove(playerShip);
+
+            playerShip.MaxSpeed = 10f;
+
+            for (int i = 0; i < shipNumber/2; i++)
+            {
+                SpawnShip(random, content);
+            }
 
         }
 

@@ -44,6 +44,14 @@ namespace Pipeline_test
             set { speed = value; }
         }
 
+        private float maxSpeed;
+
+        public float MaxSpeed
+        {
+            get { return maxSpeed; }
+            set { maxSpeed = value; }
+        }
+
         public float scale;
 
         public float Scale
@@ -120,6 +128,7 @@ namespace Pipeline_test
             this.position = Vector3.Zero;
             this.world = Matrix.CreateTranslation(position);
             this.speed = 0;
+            this.maxSpeed = 0;
             this.scale = 0;
             this.yaw = 0;
             this.pitch = 0;
@@ -140,6 +149,7 @@ namespace Pipeline_test
             this.position = position;
             this.world = Matrix.CreateTranslation(position);
             this.speed = speed;
+            this.maxSpeed = 0;
             this.scale = scale;
             this.alive = alive;
             this.yaw = 0;

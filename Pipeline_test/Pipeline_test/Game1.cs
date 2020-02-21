@@ -61,7 +61,7 @@ namespace Pipeline_test
             ShipManager.Initialize();
             Camera.Initialize(GraphicsDevice);
             skybox = new Skybox(Content);
-            player1InputManager = new InputManager(Keys.W, Keys.A, Keys.D, Keys.E);
+            player1InputManager = new InputManager(Keys.Space, Keys.A, Keys.D, Keys.E, Keys.W, Keys.S, Keys.LeftShift);
             //
 
             MessageBus.InsertNewMessage(new ConsoleMessage("Game Initiated!"));

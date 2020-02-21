@@ -45,6 +45,31 @@ namespace Pipeline_test
             set { fire = value; }
         }
 
+        private Keys faceDown;
+
+        public Keys FaceDown
+        {
+            get { return faceDown; }
+            set { faceDown = value; }
+        }
+
+        private Keys faceUp;
+
+        public Keys FaceUp
+        {
+            get { return faceUp; }
+            set { faceUp = value; }
+        }
+
+        private Keys deAccel;
+
+        public Keys DeAccel
+        {
+            get { return deAccel; }
+            set { deAccel = value; }
+        }
+
+
         #endregion
 
         private List<Command> comandos;
@@ -62,15 +87,21 @@ namespace Pipeline_test
         private Command com_left = new TurnLeft();
         private Command com_right = new TurnRight();
         private Command com_fire = new FireRocket();
+        private Command com_faceUp = new FaceUp();
+        private Command com_faceDown = new FaceDown();
+        private Command com_deAccel = new DeAccelarate();
 
         #endregion
 
-        public InputManager(Keys accel, Keys left, Keys right, Keys fire)
+        public InputManager(Keys accel, Keys left, Keys right, Keys fire, Keys faceUp, Keys faceDown, Keys deAccel)
         {
             this.accel = accel;
             this.left = left;
             this.right = right;
             this.fire = fire;
+            this.faceUp = faceUp;
+            this.faceDown = faceDown;
+            this.deAccel = deAccel;
 
             oldKeyboadState = Keyboard.GetState();
 
@@ -88,6 +119,11 @@ namespace Pipeline_test
                 comandos.Add(com_accel);
             }
 
+            if (keyboardState.IsKeyDown(deAccel))
+            {
+                comandos.Add(com_deAccel);
+            }
+
             if (keyboardState.IsKeyDown(left))
             {
                 comandos.Add(com_left);
@@ -98,10 +134,21 @@ namespace Pipeline_test
                 comandos.Add(com_right);
             }
 
-            if(keyboardState.IsKeyDown(fire) && oldKeyboadState.IsKeyUp(fire))
+            if (keyboardState.IsKeyDown(faceUp))
+            {
+                comandos.Add(com_faceUp);
+            }
+
+            if (keyboardState.IsKeyDown(faceDown))
+            {
+                comandos.Add(com_faceDown);
+            }
+
+            if (keyboardState.IsKeyDown(fire) && oldKeyboadState.IsKeyUp(fire))
             {
                 comandos.Add(com_fire);
             }
+
             #endregion
 
             oldKeyboadState = keyboardState;
