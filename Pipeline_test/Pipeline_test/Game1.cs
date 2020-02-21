@@ -19,9 +19,6 @@ namespace Pipeline_test
 
         ConsoleWriter consoleWriter;
 
-        List<Ship> ships;
-        ShipModel shipModel;
-
         Skybox skybox;
 
         Random random;
@@ -52,7 +49,6 @@ namespace Pipeline_test
         protected override void Initialize()
         {
             random = new Random();
-            ships = new List<Ship>();
 
             //Initialize Other Classes
             DebugShapeRenderer.Initialize(GraphicsDevice);
@@ -74,11 +70,11 @@ namespace Pipeline_test
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            shipModel = new ShipModel(Content, "p1_saucer");
+            //shipModel = new ShipModel(Content, "p1_saucer");
 
-            ShipForm.Loadcontent(shipModel);
+            ShipForm.Loadcontent(Content, "p1_saucer", 0.01f);
 
-            ShipManager.LoadContent(Content, random, shipModel);
+            ShipManager.LoadContent(Content, random);
         }
 
         protected override void UnloadContent()
@@ -93,7 +89,7 @@ namespace Pipeline_test
 
             MessageBus.Update();
             consoleWriter.Update();
-            ShipManager.Update(gameTime, random, Content, shipModel);
+            ShipManager.Update(gameTime, random, Content);
             Camera.Update(gameTime, GraphicsDevice,ShipManager.PlayerShip);
 
             commands = player1InputManager.UpdateInputManager();

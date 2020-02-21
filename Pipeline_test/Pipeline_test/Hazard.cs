@@ -10,15 +10,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pipeline_test
 {
-    public class Ship
+    public class Hazard
     {
         #region Variables
-
-        //public ShipModel Model
-        //{
-        //    get { return model; }
-        //    set { model = value; }
-        //}
 
         private Matrix world;
 
@@ -44,14 +38,6 @@ namespace Pipeline_test
             set { speed = value; }
         }
 
-        private float maxSpeed;
-
-        public float MaxSpeed
-        {
-            get { return maxSpeed; }
-            set { maxSpeed = value; }
-        }
-        
         private bool alive;
 
         public bool Alive
@@ -101,9 +87,9 @@ namespace Pipeline_test
             set { pitch = value; }
         }
 
-        private int roll;
+        private float roll;
 
-        public int Roll
+        public float Roll
         {
             get { return roll; }
             set { roll = value; }
@@ -115,24 +101,23 @@ namespace Pipeline_test
 
         #endregion
 
-        public Ship(ContentManager contentManager, float scale)
+        public Hazard(ContentManager contentManager)
         {
             this.position = Vector3.Zero;
             this.world = Matrix.CreateTranslation(position);
             this.speed = 0;
-            this.maxSpeed = 0;
             this.yaw = 0;
             this.pitch = 0;
             this.roll = 0;
             this.alive = false;
+
         }
 
-        public Ship(Vector3 position, ContentManager contentManager, float speed, bool alive)
+        public Hazard(Vector3 position, ContentManager contentManager, float speed, bool alive)
         {
             this.position = position;
             this.world = Matrix.CreateTranslation(position);
             this.speed = speed;
-            this.maxSpeed = 0;
             this.alive = alive;
             this.yaw = 0;
             this.pitch = 0;
@@ -144,26 +129,32 @@ namespace Pipeline_test
             {
                 boundingSphere = BoundingSphere.CreateMerged(this.boundingSphere, mesh.BoundingSphere);
             }
-            boundingSphere.Radius *= ShipForm.scale;
+
+            boundingSphere.Radius *= HazardForm.scale;
         }
 
-        public void SpawnShip(Vector3 position, float speed)
+        public void SpawnHazard(Vector3 position, float speed, float yaw, float pitch, float roll)
         {
             this.position = position;
             this.world = Matrix.CreateTranslation(position);
             this.speed = speed;
             this.alive = true;
 
+            this.pitch = pitch;
+            this.yaw = yaw;
+            this.roll = roll;
+            this.speed = speed;
+
             foreach (ModelMesh mesh in ShipForm.Model.Meshes)
             {
                 boundingSphere = BoundingSphere.CreateMerged(this.boundingSphere, mesh.BoundingSphere);
             }
-            boundingSphere.Radius *= ShipForm.scale;
+            boundingSphere.Radius *= HazardForm.scale;
         }
+
 
         public void Update(GameTime gameTime)
         {
-
             velocity -= new Vector3(0, 0, 1);
 
             velocity.Normalize();
@@ -174,8 +165,6 @@ namespace Pipeline_test
 
             world = Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(position);
             boundingSphere.Center = position;
-
-
         }
 
         public void Draw(Matrix View, Matrix Projection)
@@ -185,7 +174,7 @@ namespace Pipeline_test
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.LightingEnabled = false;
-                    effect.World = Matrix.CreateScale(ShipForm.scale) * World;
+                    effect.World = Matrix.CreateScale(HazardForm.scale) * World;
                     effect.View = View;
                     effect.Projection = Projection;
                 }

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pipeline_test
 {
-    public static class ShipForm
+    class HazardForm
     {
         private static Model model;
 

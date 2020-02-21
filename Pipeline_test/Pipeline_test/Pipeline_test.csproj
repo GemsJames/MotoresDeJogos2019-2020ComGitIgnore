@@ -46,6 +46,9 @@
     <Compile Include="Commands\InputCommands.cs" />
     <Compile Include="DebugShapeRenderer.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Hazard.cs" />
+    <Compile Include="HazardForm.cs" />
+    <Compile Include="HazardManager.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="MemoryDebug.cs" />
     <Compile Include="Messages\ConsoleMessage.cs" />
@@ -58,7 +61,6 @@
     <Compile Include="Ship.cs" />
     <Compile Include="ShipForm.cs" />
     <Compile Include="ShipManager.cs" />
-    <Compile Include="ShipModel.cs" />
     <Compile Include="Skybox.cs" />
     <Compile Include="StringConc.cs" />
   </ItemGroup>

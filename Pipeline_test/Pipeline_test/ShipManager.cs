@@ -101,7 +101,7 @@ namespace Pipeline_test
 
         }
 
-        public static void LoadContent(ContentManager content, Random random, ShipModel model)
+        public static void LoadContent(ContentManager content, Random random)
         {
             for (int i = 0; i < shipNumber; i++)
             {
@@ -110,7 +110,7 @@ namespace Pipeline_test
 
             playerShip = availableShips[random.Next(0,shipNumber)];
 
-            playerShip.SpawnShip(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), 0f, 0.01f);
+            playerShip.SpawnShip(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), 0f);
             busyShips.Add(playerShip);
             availableShips.Remove(playerShip);
 
@@ -123,7 +123,7 @@ namespace Pipeline_test
 
         }
 
-        public static void Update(GameTime gameTime, Random random, ContentManager content, ShipModel model)
+        public static void Update(GameTime gameTime, Random random, ContentManager content)
         {
             tempTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -166,13 +166,13 @@ namespace Pipeline_test
         {
             if(availableShips.Count() > 0)
             {
-                availableShips[0].SpawnShip(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), (float)random.Next(1, 10) * 0.05f, 0.01f);
+                availableShips[0].SpawnShip(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), (float)random.Next(1, 10) * 0.05f);
                 busyShips.Add(availableShips[0]);
                 availableShips.Remove(availableShips[0]);
             }
             else
             {
-                busyShips.Add(new Ship(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), content, 0.5f, 0.01f, true));
+                busyShips.Add(new Ship(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), content, 0.5f, true));
                 MessageBus.InsertNewMessage(new ConsoleMessage("Spawned ship from scratch!"));
             }
         }
