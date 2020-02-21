@@ -55,6 +55,7 @@ namespace Pipeline_test
             MessageBus.Initialize();
             consoleWriter = new ConsoleWriter();
             ShipManager.Initialize();
+            HazardManager.Initialize();
             Camera.Initialize(GraphicsDevice);
             skybox = new Skybox(Content);
             player1InputManager = new InputManager(Keys.Space, Keys.A, Keys.D, Keys.E, Keys.W, Keys.S, Keys.LeftShift);
@@ -73,8 +74,10 @@ namespace Pipeline_test
             //shipModel = new ShipModel(Content, "p1_saucer");
 
             ShipForm.Loadcontent(Content, "p1_saucer", 0.01f);
+            HazardForm.Loadcontent(Content, "p1_saucer", 0.005f, 20f);
 
             ShipManager.LoadContent(Content, random);
+            HazardManager.LoadContent(Content, random);
         }
 
         protected override void UnloadContent()
@@ -90,6 +93,7 @@ namespace Pipeline_test
             MessageBus.Update();
             consoleWriter.Update();
             ShipManager.Update(gameTime, random, Content);
+            HazardManager.Update(gameTime, random, Content);
             Camera.Update(gameTime, GraphicsDevice,ShipManager.PlayerShip);
 
             commands = player1InputManager.UpdateInputManager();
@@ -109,8 +113,9 @@ namespace Pipeline_test
             skybox.Draw(Camera.View, Camera.Projection, Camera.getPosition());
 
             ShipManager.Draw();
+            HazardManager.Draw();
 
-            DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
+            //DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
 
             base.Draw(gameTime);
         }

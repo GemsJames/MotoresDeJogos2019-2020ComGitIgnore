@@ -85,7 +85,7 @@ namespace Pipeline_test
 
         public static void Initialize()
         {
-            shipNumber = 1000;
+            shipNumber = 100;
 
             AvailableShips = new List<Ship>(shipNumber);
             BusyShips = new List<Ship>(shipNumber);
@@ -188,7 +188,10 @@ namespace Pipeline_test
         {
             foreach (Ship ship in busyShips)
             {
-                ship.Draw(Camera.View, Camera.Projection);
+                if (Camera.frustum.Intersects(ship.BoundingSphere))
+                {
+                    ship.Draw(Camera.View, Camera.Projection);
+                }
             }
 
             playerShip.Draw(Camera.View, Camera.Projection);

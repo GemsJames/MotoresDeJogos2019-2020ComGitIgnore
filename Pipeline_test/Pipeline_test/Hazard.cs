@@ -95,6 +95,22 @@ namespace Pipeline_test
             set { roll = value; }
         }
 
+        private bool barrelRollin;
+
+        public bool BarrelRollin
+        {
+            get { return barrelRollin; }
+            set { barrelRollin = value; }
+        }
+
+        private float rollRandomMod;
+
+        public float RollRandomMod
+        {
+            get { return rollRandomMod; }
+            set { rollRandomMod = value; }
+        }
+
 
         private Vector3 defaultSpeed;
 
@@ -110,10 +126,24 @@ namespace Pipeline_test
             this.pitch = 0;
             this.roll = 0;
             this.alive = false;
-
+            this.barrelRollin = false;
+            this.rollRandomMod = 1;
         }
 
-        public Hazard(Vector3 position, ContentManager contentManager, float speed, bool alive)
+        public Hazard(ContentManager contentManager, float rollRandomMod)
+        {
+            this.position = Vector3.Zero;
+            this.world = Matrix.CreateTranslation(position);
+            this.speed = 0;
+            this.yaw = 0;
+            this.pitch = 0;
+            this.roll = 0;
+            this.alive = false;
+            this.barrelRollin = false;
+            this.rollRandomMod = rollRandomMod;
+        }
+
+        public Hazard(Vector3 position, ContentManager contentManager, float speed, bool alive, bool barrelRollin, float rollRandomMod)
         {
             this.position = position;
             this.world = Matrix.CreateTranslation(position);
@@ -122,10 +152,13 @@ namespace Pipeline_test
             this.yaw = 0;
             this.pitch = 0;
             this.roll = 0;
+            this.barrelRollin = barrelRollin;
+            this.rollRandomMod = rollRandomMod;
+
             velocity = Vector3.Forward;
             defaultSpeed = new Vector3(0, 0, speed);
 
-            foreach (ModelMesh mesh in ShipForm.Model.Meshes)
+            foreach (ModelMesh mesh in HazardForm.Model.Meshes)
             {
                 boundingSphere = BoundingSphere.CreateMerged(this.boundingSphere, mesh.BoundingSphere);
             }
@@ -133,19 +166,20 @@ namespace Pipeline_test
             boundingSphere.Radius *= HazardForm.scale;
         }
 
-        public void SpawnHazard(Vector3 position, float speed, float yaw, float pitch, float roll)
+        public void SpawnHazard(Vector3 position, float speed, float yaw, float pitch, float roll, bool barrelRollin)
         {
             this.position = position;
             this.world = Matrix.CreateTranslation(position);
             this.speed = speed;
             this.alive = true;
+            this.barrelRollin = barrelRollin;
 
             this.pitch = pitch;
             this.yaw = yaw;
             this.roll = roll;
             this.speed = speed;
 
-            foreach (ModelMesh mesh in ShipForm.Model.Meshes)
+            foreach (ModelMesh mesh in HazardForm.Model.Meshes)
             {
                 boundingSphere = BoundingSphere.CreateMerged(this.boundingSphere, mesh.BoundingSphere);
             }
@@ -160,6 +194,11 @@ namespace Pipeline_test
             velocity.Normalize();
             velocity *= speed;
 
+            if (barrelRollin)
+            {
+                roll += HazardManager.AddRoll * rollRandomMod;
+            }
+
             rotation = Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll);
             position += Vector3.Transform(velocity, rotation);
 
@@ -169,7 +208,7 @@ namespace Pipeline_test
 
         public void Draw(Matrix View, Matrix Projection)
         {
-            foreach (ModelMesh mesh in ShipForm.Model.Meshes)
+            foreach (ModelMesh mesh in HazardForm.Model.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {

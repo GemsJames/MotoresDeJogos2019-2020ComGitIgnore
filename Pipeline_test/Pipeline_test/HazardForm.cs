@@ -26,11 +26,21 @@ namespace Pipeline_test
             set { scale = value; }
         }
 
-        public static void Loadcontent(ContentManager content, string modelString, float scale)
+        private static float speed;
+
+        public static float Speed
+        {
+            get { return speed; }
+            set { speed = value; }
+        }
+
+
+        public static void Loadcontent(ContentManager content, string modelString, float scale, float speed)
         {
             Model = content.Load<Model>(modelString);
 
             Scale = scale;
+            Speed = speed;
         }
     }
 }

@@ -40,6 +40,15 @@ namespace Pipeline_test
             set { busyHazards = value; }
         }
 
+        private static ContentManager customContent;
+
+        public static ContentManager CustomContent
+        {
+            get { return customContent; }
+            set { customContent = value; }
+        }
+
+
         // Might use these later
         //private static float addYaw;
 
@@ -78,7 +87,7 @@ namespace Pipeline_test
             BusyHazards = new List<Hazard>(HazardNumber);
             tempHazards = new List<Hazard>(HazardNumber);
 
-            addRoll = 0.05f;
+            addRoll = 0.25f;
 
             msg = string.Format("Available Hazards: , {0}.  ,Busy Hazards: {1} ", availableHazards.Count.ToString(), busyHazards.Count.ToString(), (busyHazards.Count + availableHazards.Count).ToString());
 
@@ -86,9 +95,11 @@ namespace Pipeline_test
 
         public static void LoadContent(ContentManager content, Random random)
         {
+            customContent = content;
+
             for (int i = 0; i < HazardNumber; i++)
             {
-                AvailableHazards.Add(new Hazard(content));
+                AvailableHazards.Add(new Hazard(content,(float)(random.NextDouble() - 0.5f) * 2));
             }
         }
 
@@ -123,19 +134,19 @@ namespace Pipeline_test
             MessageBus.InsertNewMessage(new ConsoleMessage(finalMsg));
         }
 
-        public static void ShootRocket(ContentManager content, Vector3 position, float speed, float yaw, float pitch, float roll)
+        public static void ShootRocket(Vector3 position, float speed, float yaw, float pitch, float roll)
         {
             if (availableHazards.Count() > 0)
             {
-                availableHazards[0].SpawnHazard(position,speed,yaw,pitch,roll);
+                availableHazards[0].SpawnHazard(position,speed,yaw,pitch,roll,true);
                 busyHazards.Add(availableHazards[0]);
                 availableHazards.Remove(availableHazards[0]);
             }
             else
             {
-                busyHazards.Add(new Hazard(content));
+                busyHazards.Add(new Hazard(customContent));
 
-                availableHazards[0].SpawnHazard(position, speed, yaw, pitch, roll);
+                availableHazards[0].SpawnHazard(position, speed, yaw, pitch, roll,true);
                 busyHazards.Add(availableHazards[0]);
                 availableHazards.Remove(availableHazards[0]);
                 MessageBus.InsertNewMessage(new ConsoleMessage("Spawned Hazard from scratch!"));
@@ -151,9 +162,12 @@ namespace Pipeline_test
 
         public static void Draw()
         {
-            foreach (Hazard Hazard in busyHazards)
+            foreach (Hazard hazard in busyHazards)
             {
-                Hazard.Draw(Camera.View, Camera.Projection);
+                if (Camera.frustum.Intersects(hazard.BoundingSphere))
+                {
+                    hazard.Draw(Camera.View, Camera.Projection);
+                }
             }
         }
 
