@@ -85,14 +85,14 @@ namespace Pipeline_test
 
         public static void Initialize()
         {
-            shipNumber = 100;
+            shipNumber = 10;
 
             AvailableShips = new List<Ship>(shipNumber);
             BusyShips = new List<Ship>(shipNumber);
             tempShips = new List<Ship>(shipNumber);
 
             tempTimer = 0;
-            spawnTime = 0.001f;
+            spawnTime = 5.0f;
             addSpeed = 0.25f;
             addYaw = 0.025f;
             addPitch = 0.025f;
@@ -127,11 +127,14 @@ namespace Pipeline_test
         {
             tempTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (tempTimer >= spawnTime)
-            {
-                tempTimer -= spawnTime;
-                SpawnShip(random, content);
-            }
+
+            //spawna ships ao longo do tempo
+
+            //if (tempTimer >= spawnTime)
+            //{
+            //    tempTimer -= spawnTime;
+            //    SpawnShip(random, content);
+            //}
 
             foreach (Ship ship in busyShips)
             {
@@ -149,6 +152,8 @@ namespace Pipeline_test
             }
             tempShips.Clear();
 
+
+            //Memory stuff
             MemoryDebug.Update();            
 
             StringBuilder msg = new StringBuilder("Available ships: ");
@@ -176,8 +181,6 @@ namespace Pipeline_test
                 MessageBus.InsertNewMessage(new ConsoleMessage("Spawned ship from scratch!"));
             }
         }
-
-
 
         public static void ObliterateShip(Ship ship)
         {
