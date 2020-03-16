@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -196,7 +196,8 @@ namespace Pipeline_test
 
             if (barrelRollin)
             {
-                roll += HazardManager.AddRoll * rollRandomMod;
+                roll += GenericManager<Hazard>.AddRoll * rollRandomMod;
+                //roll += HazardManager.AddRoll * rollRandomMod;
             }
 
             rotation = Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll);

@@ -16,7 +16,7 @@ namespace Pipeline_test
                 {
                     if (shipA.BoundingSphere.Intersects(shipB.BoundingSphere))
                     {
-
+                        Console.WriteLine("oof");
                     }
                 }
             }
