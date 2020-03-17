@@ -99,7 +99,7 @@ namespace Pipeline_test
 
             for (int i = 0; i < HazardNumber; i++)
             {
-                AvailableHazards.Add(new Hazard(content,(float)(random.NextDouble() - 0.5f) * 2));
+                AvailableHazards.Add(new Hazard(content, (float)(random.NextDouble() - 0.5f) * 2));
             }
         }
 
@@ -138,7 +138,7 @@ namespace Pipeline_test
         {
             if (availableHazards.Count() > 0)
             {
-                availableHazards[0].SpawnHazard(position,speed,yaw,pitch,roll,true);
+                availableHazards[0].SpawnHazard(position, speed, yaw, pitch, roll, true);
                 busyHazards.Add(availableHazards[0]);
                 availableHazards.Remove(availableHazards[0]);
             }
@@ -146,7 +146,7 @@ namespace Pipeline_test
             {
                 busyHazards.Add(new Hazard(customContent));
 
-                availableHazards[0].SpawnHazard(position, speed, yaw, pitch, roll,true);
+                availableHazards[0].SpawnHazard(position, speed, yaw, pitch, roll, true);
                 busyHazards.Add(availableHazards[0]);
                 availableHazards.Remove(availableHazards[0]);
                 MessageBus.InsertNewMessage(new ConsoleMessage("Spawned Hazard from scratch!"));

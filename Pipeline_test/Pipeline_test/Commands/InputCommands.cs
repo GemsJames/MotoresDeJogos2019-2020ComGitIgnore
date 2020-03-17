@@ -95,7 +95,7 @@ namespace Pipeline_test.Commands
 
             MessageBus.InsertNewMessage(new ConsoleMessage("FIRE CARALHO"));
 
-            HazardManager.ShootRocket(ship.Position, HazardForm.Speed, ship.Yaw, ship.Pitch, ship.Roll);
+            GenericManager<Hazard>.ShootRocket(ship.Position, HazardForm.Speed, ship.Yaw, ship.Pitch, ship.Roll);
 
         }
     }

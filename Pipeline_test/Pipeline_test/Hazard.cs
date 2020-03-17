@@ -116,7 +116,18 @@ namespace Pipeline_test
 
 
         #endregion
-
+        public Hazard() //para usar c generics pq n deixa usar construtor com parametros la dentro...
+        {
+            this.position = Vector3.Zero;
+            this.world = Matrix.CreateTranslation(position);
+            this.speed = 0;
+            this.yaw = 0;
+            this.pitch = 0;
+            this.roll = 0;
+            this.alive = false;
+            this.barrelRollin = false;
+            this.rollRandomMod = 1;
+        }
         public Hazard(ContentManager contentManager)
         {
             this.position = Vector3.Zero;

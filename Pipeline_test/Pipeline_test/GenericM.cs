@@ -12,7 +12,7 @@ using Pipeline_test.Messages;
 
 namespace Pipeline_test
 {
-    public class GenericManager<T> where T : Hazard
+    public class GenericManager<T> where T :  Hazard, new()
     {
         #region Variables
 
@@ -97,11 +97,10 @@ namespace Pipeline_test
         {
             customContent = content;
            
-
             for (int i = 0; i < HazardNumber; i++)
             {
                 //AvailableHazards.Add(new T(content, (float)(random.NextDouble() - 0.5f) * 2));
-                availableHazards.Add(new T(content, (float)(random.NextDouble() - 0.5f) * 2));
+                availableHazards.Add(new T());
             }
         }
 
@@ -136,24 +135,25 @@ namespace Pipeline_test
             MessageBus.InsertNewMessage(new ConsoleMessage(finalMsg));
         }
 
-        //public static void ShootRocket(Vector3 position, float speed, float yaw, float pitch, float roll)
-        //{
-        //    if (availableHazards.Count() > 0)
-        //    {
-        //        availableHazards[0].SpawnHazard(position, speed, yaw, pitch, roll, true);
-        //        busyHazards.Add(availableHazards[0]);
-        //        availableHazards.Remove(availableHazards[0]);
-        //    }
-        //    else
-        //    {
-        //        busyHazards.Add(new T(customContent));
+        public static void ShootRocket(Vector3 position, float speed, float yaw, float pitch, float roll)
+        {
+            if (availableHazards.Count() > 0)
+            {
+                availableHazards[0].SpawnHazard(position, speed, yaw, pitch, roll, true);
+                busyHazards.Add(availableHazards[0]);
+                availableHazards.Remove(availableHazards[0]);
+            }
+            else
+            {
+                //busyHazards.Add(new T(customContent));
+                busyHazards.Add(new T());
 
-        //        availableHazards[0].SpawnHazard(position, speed, yaw, pitch, roll, true);
-        //        busyHazards.Add(availableHazards[0]);
-        //        availableHazards.Remove(availableHazards[0]);
-        //        MessageBus.InsertNewMessage(new ConsoleMessage("Spawned Hazard from scratch!"));
-        //    }
-        //}
+                availableHazards[0].SpawnHazard(position, speed, yaw, pitch, roll, true);
+                busyHazards.Add(availableHazards[0]);
+                availableHazards.Remove(availableHazards[0]);
+                MessageBus.InsertNewMessage(new ConsoleMessage("Spawned Hazard from scratch!"));
+            }
+        }
 
 
 
