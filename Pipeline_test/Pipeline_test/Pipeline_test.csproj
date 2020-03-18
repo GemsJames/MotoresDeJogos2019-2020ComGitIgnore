@@ -57,7 +57,9 @@
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\MessageBus.cs" />
     <Compile Include="Messages\MessageType.cs" />
+    <Compile Include="Observers\MessageObserver.cs" />
     <Compile Include="Observers\Observer.cs" />
+    <Compile Include="Observers\ObserverActions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ship.cs" />

@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Pipeline_test.Observers
 {
-    public abstract class Observer
+    public static class ObserverActions
     {
-        public abstract void OnNotify(Ship ship, ObserverActions.Action action);
+        public enum Action
+        {
+            Explosion
+        }
     }
 }

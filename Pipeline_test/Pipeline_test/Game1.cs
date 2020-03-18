@@ -25,7 +25,6 @@ namespace Pipeline_test
 
         InputManager player1InputManager;
         List<Command> commands;
-
         
         public Game1()
         {
@@ -59,7 +58,7 @@ namespace Pipeline_test
             Camera.Initialize(GraphicsDevice);
             skybox = new Skybox(Content);
             player1InputManager = new InputManager(Keys.Space, Keys.A, Keys.D, Keys.E, Keys.W, Keys.S, Keys.LeftShift);
-            //
+            CollisionManager.Initialize();
 
             MessageBus.InsertNewMessage(new ConsoleMessage("Game Initiated!"));
 
@@ -95,6 +94,8 @@ namespace Pipeline_test
             ShipManager.Update(gameTime, random, Content);
             HazardManager.Update(gameTime, random, Content);
             Camera.Update(gameTime, GraphicsDevice,ShipManager.PlayerShip);
+            CollisionManager.DetectCollisions(ShipManager.BusyShips,ShipManager.BusyShips);
+
 
             commands = player1InputManager.UpdateInputManager();
             foreach(Command command in commands)

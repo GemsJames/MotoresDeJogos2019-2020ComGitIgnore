@@ -127,15 +127,6 @@ namespace Pipeline_test
         {
             tempTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
-
-            //spawna ships ao longo do tempo
-
-            //if (tempTimer >= spawnTime)
-            //{
-            //    tempTimer -= spawnTime;
-            //    SpawnShip(random, content);
-            //}
-
             foreach (Ship ship in busyShips)
             {
                 ship.Update(gameTime);

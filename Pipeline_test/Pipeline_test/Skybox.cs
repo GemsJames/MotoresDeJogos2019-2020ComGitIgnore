@@ -42,7 +42,6 @@ namespace Pipeline_test
             skyBoxTexture = Content.Load<TextureCube>("skyboxes/montanhas");
             skyBoxEffect = Content.Load<Effect>("SkyBox");
 
-
         }
 
         /// <summary>
