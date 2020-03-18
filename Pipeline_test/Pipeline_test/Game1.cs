@@ -100,7 +100,7 @@ namespace Pipeline_test
             GenericManager<Hazard>.Update(gameTime, random, Content);
             Camera.Update(gameTime, GraphicsDevice,ShipManager.PlayerShip);
             CollisionManager.DetectCollisions(ShipManager.BusyShips,ShipManager.BusyShips);
-
+            CollisionManager.DetectCollisions(ShipManager.BusyShips, GenericManager<Hazard>.BusyHazards);
 
             commands = player1InputManager.UpdateInputManager();
             foreach(Command command in commands)

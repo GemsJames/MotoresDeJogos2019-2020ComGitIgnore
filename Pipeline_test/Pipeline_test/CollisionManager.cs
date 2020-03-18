@@ -48,5 +48,21 @@ namespace Pipeline_test
                 }
             }
         }
+
+        public static void DetectCollisions(List<Ship> listA, List<Hazard> listB)
+        {
+            foreach (Ship shipA in listA)
+            {
+                foreach (Hazard hazard in listB)
+                {
+                    if (shipA.BoundingSphere.Intersects(hazard.BoundingSphere) && shipA != ShipManager.PlayerShip)
+                    {
+                        Notify(shipA);
+                        ShipManager.ObliterateShip(shipA);
+                        GenericManager<Hazard>.ObliterateHazard(hazard);
+                    }
+                }
+            }
+        }
     }
 }
