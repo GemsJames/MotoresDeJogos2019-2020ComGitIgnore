@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pipeline_test.Messages;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,6 +28,13 @@ namespace Pipeline_test
             //}
             stream.Close();
        }
+       public static void load(Ship ship1)
+        {
+            //MessageBus.InsertNewMessage(new ConsoleMessage("Loaded"));
+            //stream = File.OpenRead("saveFile");
+            //stream.Close();
+        }
+
     }
 
 }
