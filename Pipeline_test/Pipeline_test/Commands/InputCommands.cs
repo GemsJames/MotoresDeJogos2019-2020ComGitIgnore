@@ -1,12 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using Pipeline_test.Messages;
 
 namespace Pipeline_test.Commands
 {
+    
+    public class Save : Command
+    {
+        public override void Execute(Ship ship)
+        {
+            MessageBus.InsertNewMessage(new ConsoleMessage("Saved"));
+            Serialize.save(ship);
+
+           
+        }
+    }
+
+    public class Load : Command
+    {
+        public override void Execute(Ship ship)
+        {
+           
+            //MessageBus.InsertNewMessage(new ConsoleMessage("Loaded"));
+            //stream = File.OpenRead("saveFile");
+            //stream.Close();
+        }
+    }
+
+
     public class Accelarate : Command
     {
         public override void Execute(Ship ship)
@@ -93,7 +119,7 @@ namespace Pipeline_test.Commands
         public override void Execute(Ship ship)
         {
 
-            MessageBus.InsertNewMessage(new ConsoleMessage("FIRE CARALHO"));
+            MessageBus.InsertNewMessage(new ConsoleMessage("FIRE "));
 
             GenericManager<Hazard>.ShootRocket(ship.Position, HazardForm.Speed, ship.Yaw, ship.Pitch, ship.Roll);
 

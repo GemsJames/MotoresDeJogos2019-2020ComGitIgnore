@@ -85,7 +85,7 @@ namespace Pipeline_test
 
         public static void Initialize()
         {
-            shipNumber = 10;
+            shipNumber = 100;
 
             AvailableShips = new List<Ship>(shipNumber);
             BusyShips = new List<Ship>(shipNumber);

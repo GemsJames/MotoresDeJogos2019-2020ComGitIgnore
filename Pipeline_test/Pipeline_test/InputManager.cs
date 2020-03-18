@@ -68,7 +68,23 @@ namespace Pipeline_test
             get { return deAccel; }
             set { deAccel = value; }
         }
+        //load and save
 
+        private Keys save;
+
+        public Keys Save
+        {
+            get { return save; }
+            set { save = value; }
+        }
+
+        private Keys load;
+
+        public Keys Load
+        {
+            get { return load; }
+            set { load = value; }
+        }
 
         #endregion
 
@@ -90,10 +106,12 @@ namespace Pipeline_test
         private Command com_faceUp = new FaceUp();
         private Command com_faceDown = new FaceDown();
         private Command com_deAccel = new DeAccelarate();
+        private Command com_save = new Save();
+        private Command com_load = new Load();
 
         #endregion
 
-        public InputManager(Keys accel, Keys left, Keys right, Keys fire, Keys faceUp, Keys faceDown, Keys deAccel)
+        public InputManager(Keys accel, Keys left, Keys right, Keys fire, Keys faceUp, Keys faceDown, Keys deAccel, Keys save, Keys load)
         {
             this.accel = accel;
             this.left = left;
@@ -102,6 +120,8 @@ namespace Pipeline_test
             this.faceUp = faceUp;
             this.faceDown = faceDown;
             this.deAccel = deAccel;
+            this.save = save;
+            this.load = load;
 
             oldKeyboadState = Keyboard.GetState();
 
@@ -149,6 +169,14 @@ namespace Pipeline_test
                 comandos.Add(com_fire);
             }
 
+            if (keyboardState.IsKeyDown(save))
+            {
+                comandos.Add(com_save);
+            }
+            if (keyboardState.IsKeyDown(load))
+            {
+                comandos.Add(com_load);
+            }
             #endregion
 
             oldKeyboadState = keyboardState;
