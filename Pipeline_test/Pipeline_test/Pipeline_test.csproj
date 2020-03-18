@@ -47,6 +47,7 @@
     <Compile Include="Commands\InputCommands.cs" />
     <Compile Include="DebugShapeRenderer.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GenericM.cs" />
     <Compile Include="Hazard.cs" />
     <Compile Include="HazardForm.cs" />
     <Compile Include="HazardManager.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Observers\ObserverActions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialize.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="ShipForm.cs" />
     <Compile Include="ShipManager.cs" />

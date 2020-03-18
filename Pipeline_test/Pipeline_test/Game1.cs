@@ -54,10 +54,13 @@ namespace Pipeline_test
             MessageBus.Initialize();
             consoleWriter = new ConsoleWriter();
             ShipManager.Initialize();
-            HazardManager.Initialize();
+
+            //HazardManager.Initialize();
+            GenericManager<Hazard>.Initialize();
+
             Camera.Initialize(GraphicsDevice);
             skybox = new Skybox(Content);
-            player1InputManager = new InputManager(Keys.Space, Keys.A, Keys.D, Keys.E, Keys.W, Keys.S, Keys.LeftShift);
+            player1InputManager = new InputManager(Keys.Space, Keys.A, Keys.D, Keys.E, Keys.W, Keys.S, Keys.LeftShift, Keys.F1, Keys.F2);
             CollisionManager.Initialize();
 
             MessageBus.InsertNewMessage(new ConsoleMessage("Game Initiated!"));
@@ -76,7 +79,8 @@ namespace Pipeline_test
             HazardForm.Loadcontent(Content, "p1_saucer", 0.005f, 20f);
 
             ShipManager.LoadContent(Content, random);
-            HazardManager.LoadContent(Content, random);
+            //HazardManager.LoadContent(Content, random);
+            GenericManager<Hazard>.LoadContent(Content, random);
         }
 
         protected override void UnloadContent()
@@ -92,7 +96,8 @@ namespace Pipeline_test
             MessageBus.Update();
             consoleWriter.Update();
             ShipManager.Update(gameTime, random, Content);
-            HazardManager.Update(gameTime, random, Content);
+            //HazardManager.Update(gameTime, random, Content);
+            GenericManager<Hazard>.Update(gameTime, random, Content);
             Camera.Update(gameTime, GraphicsDevice,ShipManager.PlayerShip);
             CollisionManager.DetectCollisions(ShipManager.BusyShips,ShipManager.BusyShips);
 
@@ -114,7 +119,8 @@ namespace Pipeline_test
             skybox.Draw(Camera.View, Camera.Projection, Camera.getPosition());
 
             ShipManager.Draw();
-            HazardManager.Draw();
+            //HazardManager.Draw();
+            GenericManager<Hazard>.Draw();
 
             //DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
 

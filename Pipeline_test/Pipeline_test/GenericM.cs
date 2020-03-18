@@ -12,7 +12,7 @@ using Pipeline_test.Messages;
 
 namespace Pipeline_test
 {
-    public static class HazardManager
+    public class GenericManager<T> where T :  Hazard, new()
     {
         #region Variables
 
@@ -24,17 +24,17 @@ namespace Pipeline_test
             set { msg = value; }
         }
 
-        private static List<Hazard> availableHazards;
+        private static List<T> availableHazards;
 
-        public static List<Hazard> AvailableHazards
+        public static List<T> AvailableHazards
         {
             get { return availableHazards; }
             set { availableHazards = value; }
         }
 
-        private static List<Hazard> busyHazards;
+        private static List<T> busyHazards;
 
-        public static List<Hazard> BusyHazards
+        public static List<T> BusyHazards
         {
             get { return busyHazards; }
             set { busyHazards = value; }
@@ -73,7 +73,7 @@ namespace Pipeline_test
             get { return addRoll; }
             set { addRoll = value; }
         }
-        private static List<Hazard> tempHazards;
+        private static List<T> tempHazards;
 
         private static int HazardNumber;
 
@@ -83,10 +83,10 @@ namespace Pipeline_test
         {
             HazardNumber = 1000;
 
-            AvailableHazards = new List<Hazard>(HazardNumber);
-            BusyHazards = new List<Hazard>(HazardNumber);
-            tempHazards = new List<Hazard>(HazardNumber);
-
+            AvailableHazards = new List<T>(HazardNumber);
+            BusyHazards = new List<T>(HazardNumber);
+            tempHazards = new List<T>(HazardNumber);
+            
             addRoll = 0.25f;
 
             msg = string.Format("Available Hazards: , {0}.  ,Busy Hazards: {1} ", availableHazards.Count.ToString(), busyHazards.Count.ToString(), (busyHazards.Count + availableHazards.Count).ToString());
@@ -96,16 +96,17 @@ namespace Pipeline_test
         public static void LoadContent(ContentManager content, Random random)
         {
             customContent = content;
-
+           
             for (int i = 0; i < HazardNumber; i++)
             {
-                AvailableHazards.Add(new Hazard(content, (float)(random.NextDouble() - 0.5f) * 2));
+                //AvailableHazards.Add(new T(content, (float)(random.NextDouble() - 0.5f) * 2));
+                availableHazards.Add(new T());
             }
         }
 
         public static void Update(GameTime gameTime, Random random, ContentManager content)
         {
-            foreach (Hazard Hazard in busyHazards)
+            foreach (T Hazard in busyHazards)
             {
                 Hazard.Update(gameTime);
                 if (!Hazard.Alive)
@@ -114,7 +115,7 @@ namespace Pipeline_test
                 }
             }
 
-            foreach (Hazard Hazard in tempHazards)
+            foreach (T Hazard in tempHazards)
             {
                 availableHazards.Add(Hazard);
                 busyHazards.Remove(Hazard);
@@ -144,7 +145,8 @@ namespace Pipeline_test
             }
             else
             {
-                busyHazards.Add(new Hazard(customContent));
+                //busyHazards.Add(new T(customContent));
+                busyHazards.Add(new T());
 
                 availableHazards[0].SpawnHazard(position, speed, yaw, pitch, roll, true);
                 busyHazards.Add(availableHazards[0]);
@@ -155,14 +157,14 @@ namespace Pipeline_test
 
 
 
-        public static void ObliterateHazard(Hazard Hazard)
+        public static void ObliterateHazard(T Hazard)
         {
             Hazard.Alive = false;
         }
 
         public static void Draw()
         {
-            foreach (Hazard hazard in busyHazards)
+            foreach (T hazard in busyHazards)
             {
                 if (Camera.frustum.Intersects(hazard.BoundingSphere))
                 {
