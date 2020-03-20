@@ -25,10 +25,8 @@ namespace Pipeline_test.Commands
     {
         public override void Execute(Ship ship)
         {
-           
-            //MessageBus.InsertNewMessage(new ConsoleMessage("Loaded"));
-            //stream = File.OpenRead("saveFile");
-            //stream.Close();
+
+            Serialize.load(ship);
         }
     }
 

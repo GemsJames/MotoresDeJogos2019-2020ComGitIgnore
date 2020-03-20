@@ -76,7 +76,7 @@ namespace Pipeline_test
             //shipModel = new ShipModel(Content, "p1_saucer");
 
             ShipForm.Loadcontent(Content, "p1_saucer", 0.01f);
-            HazardForm.Loadcontent(Content, "p1_saucer", 0.005f, 20f);
+            HazardForm.Loadcontent(Content, "missil", 0.1f, 40f);
 
             ShipManager.LoadContent(Content, random);
             //HazardManager.LoadContent(Content, random);
