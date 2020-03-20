@@ -99,7 +99,7 @@ namespace Pipeline_test
 
             for (int i = 0; i < HazardNumber; i++)
             {
-                AvailableHazards.Add(new Hazard(content, (float)(random.NextDouble() - 0.5f) * 2));
+                AvailableHazards.Add(new Hazard((float)(random.NextDouble() - 0.5f) * 2));
             }
         }
 
@@ -144,7 +144,7 @@ namespace Pipeline_test
             }
             else
             {
-                busyHazards.Add(new Hazard(customContent));
+                busyHazards.Add(new Hazard());
 
                 availableHazards[0].SpawnHazard(position, speed, yaw, pitch, roll, true);
                 busyHazards.Add(availableHazards[0]);

@@ -13,10 +13,12 @@ namespace Pipeline_test
         public static List<Observer> observers = new List<Observer>();
 
         public static MessageObserver messageObserver = new MessageObserver();
+        public static ExplosionObserver explosionObserver = new ExplosionObserver();
 
         public static void Initialize()
         {
             AddObserver(messageObserver);
+            AddObserver(explosionObserver);
         }
 
         public static void AddObserver(Observer observer)
@@ -40,10 +42,10 @@ namespace Pipeline_test
                 {
                     if (shipA.BoundingSphere.Intersects(shipB.BoundingSphere) && shipA != shipB)
                     {
-                        Notify(shipA);
-                        Notify(shipB);
-                        ShipManager.ObliterateShip(shipA);
-                        ShipManager.ObliterateShip(shipB);
+                        if(shipA != ShipManager.PlayerShip)
+                            Notify(shipA);
+                        if (shipB != ShipManager.PlayerShip)
+                            Notify(shipB);
                     }
                 }
             }
@@ -57,9 +59,7 @@ namespace Pipeline_test
                 {
                     if (shipA.BoundingSphere.Intersects(hazard.BoundingSphere) && shipA != ShipManager.PlayerShip)
                     {
-                        ExplosionManager.SpawnExplosion(shipA.Position);
                         Notify(shipA);
-                        ShipManager.ObliterateShip(shipA);
                         GenericManager<Hazard>.ObliterateHazard(hazard);
                     }
                 }

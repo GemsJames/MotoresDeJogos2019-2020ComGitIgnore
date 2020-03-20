@@ -61,8 +61,6 @@ namespace Pipeline_test
             {
                 AvailableExplosions.Add(new Explosion());
             }
-
-            //SpawnExplosion(ShipManager.PlayerShip.Position);
         }
 
         public static void Update(GameTime gameTime)
@@ -86,18 +84,18 @@ namespace Pipeline_test
 
         }
 
-        public static void SpawnExplosion(Vector3 position)
+        public static void SpawnExplosion(Vector3 position, float maxSize)
         {
             if (availableExplosions.Count() > 0)
             {
-                availableExplosions[0].SpawnExplosion(position, 0.02f, 1f);
+                availableExplosions[0].SpawnExplosion(position, maxSize * 0.02f, maxSize);
                 busyExplosions.Add(availableExplosions[0]);
                 availableExplosions.Remove(availableExplosions[0]);
                 MessageBus.InsertNewMessage(new ConsoleMessage("Spawned Explosion from available!"));
             }
             else
             {
-                busyExplosions.Add(new Explosion(position, 0.02f, 1f, true));
+                busyExplosions.Add(new Explosion(position, maxSize * 0.02f , maxSize, true));
                 MessageBus.InsertNewMessage(new ConsoleMessage("Spawned Explosion from scratch!"));
             }
         }

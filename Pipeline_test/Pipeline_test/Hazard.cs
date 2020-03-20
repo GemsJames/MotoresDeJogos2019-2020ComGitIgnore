@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pipeline_test
 {
-    public class Hazard
+    public class Hazard : IExplodable
     {
         #region Variables
 
@@ -111,6 +111,13 @@ namespace Pipeline_test
             set { rollRandomMod = value; }
         }
 
+        private float explosionSize;
+
+        public float ExplosionSize
+        {
+            get { return explosionSize; }
+            set { explosionSize = value; }
+        }
 
         private Vector3 defaultSpeed;
 
@@ -127,21 +134,10 @@ namespace Pipeline_test
             this.alive = false;
             this.barrelRollin = false;
             this.rollRandomMod = 1;
-        }
-        public Hazard(ContentManager contentManager)
-        {
-            this.position = Vector3.Zero;
-            this.world = Matrix.CreateTranslation(position);
-            this.speed = 0;
-            this.yaw = 0;
-            this.pitch = 0;
-            this.roll = 0;
-            this.alive = false;
-            this.barrelRollin = false;
-            this.rollRandomMod = 1;
+            this.explosionSize = 0.5f;
         }
 
-        public Hazard(ContentManager contentManager, float rollRandomMod)
+        public Hazard(float rollRandomMod)
         {
             this.position = Vector3.Zero;
             this.world = Matrix.CreateTranslation(position);
@@ -152,9 +148,10 @@ namespace Pipeline_test
             this.alive = false;
             this.barrelRollin = false;
             this.rollRandomMod = rollRandomMod;
+            this.explosionSize = 0.5f;
         }
 
-        public Hazard(Vector3 position, ContentManager contentManager, float speed, bool alive, bool barrelRollin, float rollRandomMod)
+        public Hazard(Vector3 position, float speed, bool alive, bool barrelRollin, float rollRandomMod)
         {
             this.position = position;
             this.world = Matrix.CreateTranslation(position);
@@ -165,6 +162,7 @@ namespace Pipeline_test
             this.roll = 0;
             this.barrelRollin = barrelRollin;
             this.rollRandomMod = rollRandomMod;
+            this.explosionSize = 0.5f;
 
             velocity = Vector3.Forward;
             defaultSpeed = new Vector3(0, 0, speed);
@@ -197,6 +195,11 @@ namespace Pipeline_test
             boundingSphere.Radius *= HazardForm.scale;
         }
 
+        public void Explode()
+        {
+            ExplosionManager.SpawnExplosion(position, explosionSize);
+            alive = false;
+        }
 
         public void Update(GameTime gameTime)
         {

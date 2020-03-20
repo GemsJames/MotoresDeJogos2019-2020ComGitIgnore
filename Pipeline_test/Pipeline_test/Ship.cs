@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pipeline_test
 {
-    public class Ship
+    public class Ship : IExplodable
     {
         #region Variables
 
@@ -110,13 +110,20 @@ namespace Pipeline_test
             set { roll = value; }
         }
 
+        private float explosionSize;
+
+        public float ExplosionSize
+        {
+            get { return explosionSize; }
+            set { explosionSize = value; }
+        }
 
         private Vector3 defaultSpeed;
 
 
         #endregion
 
-        public Ship(ContentManager contentManager, float scale)
+        public Ship(float scale)
         {
             this.position = Vector3.Zero;
             this.world = Matrix.CreateTranslation(position);
@@ -126,9 +133,10 @@ namespace Pipeline_test
             this.pitch = 0;
             this.roll = 0;
             this.alive = false;
+            this.explosionSize = 1;
         }
 
-        public Ship(Vector3 position, ContentManager contentManager, float speed, bool alive)
+        public Ship(Vector3 position, float speed, bool alive)
         {
             this.position = position;
             this.world = Matrix.CreateTranslation(position);
@@ -140,6 +148,7 @@ namespace Pipeline_test
             this.roll = 0;
             velocity = Vector3.Forward;
             defaultSpeed = new Vector3(0, 0, speed);
+            this.explosionSize = 1;
 
             foreach (ModelMesh mesh in ShipForm.Model.Meshes)
             {
@@ -154,6 +163,7 @@ namespace Pipeline_test
             this.world = Matrix.CreateTranslation(position);
             this.speed = speed;
             this.alive = true;
+            this.explosionSize = 1;
 
             foreach (ModelMesh mesh in ShipForm.Model.Meshes)
             {
@@ -177,6 +187,12 @@ namespace Pipeline_test
             boundingSphere.Center = position;
 
 
+        }
+
+        public void Explode()
+        {
+            ExplosionManager.SpawnExplosion(position,explosionSize);
+            alive = false;
         }
 
         public void Draw(Matrix View, Matrix Projection)

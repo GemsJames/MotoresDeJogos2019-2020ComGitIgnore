@@ -54,6 +54,7 @@
     <Compile Include="Hazard.cs" />
     <Compile Include="HazardForm.cs" />
     <Compile Include="HazardManager.cs" />
+    <Compile Include="IExplodable.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="MemoryDebug.cs" />
     <Compile Include="Messages\ConsoleMessage.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\MessageBus.cs" />
     <Compile Include="Messages\MessageType.cs" />
+    <Compile Include="Observers\ExplosionObserver.cs" />
     <Compile Include="Observers\MessageObserver.cs" />
     <Compile Include="Observers\Observer.cs" />
     <Compile Include="Observers\ObserverActions.cs" />
