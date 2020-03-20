@@ -46,6 +46,9 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\InputCommands.cs" />
     <Compile Include="DebugShapeRenderer.cs" />
+    <Compile Include="Explosion.cs" />
+    <Compile Include="ExplosionForm.cs" />
+    <Compile Include="ExplosionManager.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GenericM.cs" />
     <Compile Include="Hazard.cs" />

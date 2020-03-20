@@ -57,6 +57,7 @@ namespace Pipeline_test
                 {
                     if (shipA.BoundingSphere.Intersects(hazard.BoundingSphere) && shipA != ShipManager.PlayerShip)
                     {
+                        ExplosionManager.SpawnExplosion(shipA.Position);
                         Notify(shipA);
                         ShipManager.ObliterateShip(shipA);
                         GenericManager<Hazard>.ObliterateHazard(hazard);

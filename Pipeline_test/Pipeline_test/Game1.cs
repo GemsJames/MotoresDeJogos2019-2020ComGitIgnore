@@ -63,6 +63,8 @@ namespace Pipeline_test
             player1InputManager = new InputManager(Keys.Space, Keys.A, Keys.D, Keys.E, Keys.W, Keys.S, Keys.LeftShift, Keys.F1, Keys.F2);
             CollisionManager.Initialize();
 
+            ExplosionManager.Initialize();
+
             MessageBus.InsertNewMessage(new ConsoleMessage("Game Initiated!"));
 
             base.Initialize();
@@ -77,10 +79,12 @@ namespace Pipeline_test
 
             ShipForm.Loadcontent(Content, "p1_saucer", 0.01f);
             HazardForm.Loadcontent(Content, "missil", 0.1f, 40f);
+            ExplosionForm.Loadcontent(Content, "explosion");
 
             ShipManager.LoadContent(Content, random);
             //HazardManager.LoadContent(Content, random);
             GenericManager<Hazard>.LoadContent(Content, random);
+            ExplosionManager.LoadContent(Content);
         }
 
         protected override void UnloadContent()
@@ -99,6 +103,9 @@ namespace Pipeline_test
             //HazardManager.Update(gameTime, random, Content);
             GenericManager<Hazard>.Update(gameTime, random, Content);
             Camera.Update(gameTime, GraphicsDevice,ShipManager.PlayerShip);
+
+            ExplosionManager.Update(gameTime);
+
             CollisionManager.DetectCollisions(ShipManager.BusyShips,ShipManager.BusyShips);
             CollisionManager.DetectCollisions(ShipManager.BusyShips, GenericManager<Hazard>.BusyHazards);
 
@@ -121,6 +128,7 @@ namespace Pipeline_test
             ShipManager.Draw();
             //HazardManager.Draw();
             GenericManager<Hazard>.Draw();
+            ExplosionManager.Draw();
 
             //DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
 
