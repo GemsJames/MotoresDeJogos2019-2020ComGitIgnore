@@ -11,7 +11,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pipeline_test
 {
-    public class Ship : IExplodable, ICollidable
+    [Serializable()]
+    public class Ship : IExplodable
     {
         #region Variables
 
@@ -122,6 +123,19 @@ namespace Pipeline_test
 
 
         #endregion
+
+        public Ship()
+        {
+            this.position = Vector3.Zero;
+            this.world = Matrix.CreateTranslation(position);
+            this.speed = 0;
+            this.maxSpeed = 0;
+            this.yaw = 0;
+            this.pitch = 0;
+            this.roll = 0;
+            this.alive = false;
+            this.explosionSize = 1;
+        }
 
         public Ship(float scale)
         {

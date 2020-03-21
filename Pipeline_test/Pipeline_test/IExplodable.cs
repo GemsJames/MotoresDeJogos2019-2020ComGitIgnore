@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pipeline_test
 {
+    
     interface IExplodable
     {
         Vector3 Position

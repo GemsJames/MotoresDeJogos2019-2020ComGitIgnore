@@ -9,13 +9,16 @@ using Pipeline_test.Messages;
 
 namespace Pipeline_test.Commands
 {
+
     
     public class Save : Command
     {
+       
+
         public override void Execute(Ship ship)
         {
             MessageBus.InsertNewMessage(new ConsoleMessage("Saved"));
-            Serialize.save(ship);
+            Serialize.Save();
 
            
         }
@@ -26,7 +29,7 @@ namespace Pipeline_test.Commands
         public override void Execute(Ship ship)
         {
 
-            Serialize.load(ship);
+            Serialize.Load();
         }
     }
 
