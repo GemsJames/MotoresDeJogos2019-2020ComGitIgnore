@@ -20,12 +20,20 @@ namespace Pipeline_test
             SaveShip(ShipManager.PlayerShip);
         }
 
+        public static void Load()
+        {
+            LoadList(ShipManager.AvailableShips);
+            LoadList(ShipManager.BusyShips);
+            LoadShip(ShipManager.PlayerShip);
+        }
+
         public static void SaveShip(Ship ship)
         {
             FileStream stream = File.Create("saveFile2.txt");
             System.Xml.Serialization.XmlSerializer formatter = new System.Xml.Serialization.XmlSerializer(typeof(Ship));
             formatter.Serialize(stream, ship);
             stream.Close();
+
         }
 
         public static void SaveList(List<Ship> shipList)
@@ -46,12 +54,6 @@ namespace Pipeline_test
 
          
         }
-       public static void Load()
-       {
-            LoadList(ShipManager.AvailableShips);
-            LoadList(ShipManager.BusyShips);
-            LoadShip(ShipManager.PlayerShip);
-       }
 
         public static void LoadShip(Ship ship)
         {
