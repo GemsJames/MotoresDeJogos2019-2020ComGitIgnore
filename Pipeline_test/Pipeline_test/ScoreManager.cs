@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using Pipeline_test.Messages;
 using Pipeline_test.Commands;
+using Microsoft.Xna.Framework.Content;
 
 namespace Pipeline_test
 {
@@ -19,16 +20,38 @@ namespace Pipeline_test
             set { score = value; }
         }
 
+        private static SpriteFont font;
+
+        public static SpriteFont Font
+        {
+            get { return font; }
+            set { font = value; }
+        }
+
+
         public static void Initialize()
         {
             score = 0;
+        }
 
+        public static void LoadContent(ContentManager content,string fontName)
+        {
+            font = content.Load<SpriteFont>(fontName);
         }
 
         public static void AddScore(float scoreToAdd)
         {
             score += scoreToAdd;
             MessageBus.InsertNewMessage(new ConsoleMessage("Score : " + score));
+        }
+
+        public static void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin();
+
+            spriteBatch.DrawString(font, "Score", new Vector2(100, 100), Color.Black);
+
+            spriteBatch.End();
         }
 
     }
