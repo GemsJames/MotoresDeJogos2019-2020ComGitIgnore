@@ -59,6 +59,9 @@ namespace Pipeline_test
             System.Xml.Serialization.XmlSerializer disformatter = new System.Xml.Serialization.XmlSerializer(typeof(Ship));
 
             ship = (Ship)disformatter.Deserialize(stream);
+
+            ShipManager.SpawnPlayer();
+            stream.Close();
         }
 
         public static void LoadList(List<Ship> shipList)

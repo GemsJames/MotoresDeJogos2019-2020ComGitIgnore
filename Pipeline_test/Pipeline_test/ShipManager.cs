@@ -189,6 +189,13 @@ namespace Pipeline_test
             }
         }
 
+        public static void SpawnPlayer() //used only for serialize
+        {
+            playerShip.SpawnShip(playerShip.Position, 0f);
+            busyShips.Add(playerShip);
+            availableShips.Remove(playerShip);
+        }
+
         public static void ObliterateShip(Ship ship)
         {
             ship.Alive = false;
