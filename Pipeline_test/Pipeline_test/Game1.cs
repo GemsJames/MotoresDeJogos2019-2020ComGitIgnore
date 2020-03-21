@@ -135,13 +135,12 @@ namespace Pipeline_test
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            ScoreManager.Draw(spriteBatch);
             skybox.Draw(Camera.View, Camera.Projection, Camera.getPosition());
-
             ShipManager.Draw();
             //HazardManager.Draw();
             GenericManager<Hazard>.Draw();
             ExplosionManager.Draw();
-            ScoreManager.Draw(spriteBatch);
 
             //DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
 

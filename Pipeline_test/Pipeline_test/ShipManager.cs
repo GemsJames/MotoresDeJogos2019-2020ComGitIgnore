@@ -110,9 +110,11 @@ namespace Pipeline_test
 
             playerShip = availableShips[random.Next(0,shipNumber)];
 
-            playerShip.SpawnShip(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), 0f);
-            busyShips.Add(playerShip);
-            availableShips.Remove(playerShip);
+            //playerShip.SpawnShip(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), 0f);
+            //busyShips.Add(playerShip);
+            //availableShips.Remove(playerShip);
+
+            SpawnPlayer(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)));
 
             playerShip.MaxSpeed = 10f;
 
@@ -187,6 +189,13 @@ namespace Pipeline_test
                 busyShips.Add(new Ship(new Vector3(random.Next(-1000, 1000), random.Next(-1000, 1000), random.Next(-1000, 1000)), 0.5f, true));
                 MessageBus.InsertNewMessage(new ConsoleMessage("Spawned ship from scratch!"));
             }
+        }
+
+        public static void SpawnPlayer(Vector3 position) //used only for serialize
+        {
+            playerShip.SpawnShip(position, 0f);
+            busyShips.Add(playerShip);
+            availableShips.Remove(playerShip);
         }
 
         public static void ObliterateShip(Ship ship)
