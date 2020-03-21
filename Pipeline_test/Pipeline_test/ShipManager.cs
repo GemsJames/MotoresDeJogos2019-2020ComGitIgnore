@@ -92,7 +92,7 @@ namespace Pipeline_test
             tempShips = new List<Ship>(shipNumber);
 
             tempTimer = 0;
-            spawnTime = 5.0f;
+            spawnTime = 10.0f;
             addSpeed = 0.25f;
             addYaw = 0.025f;
             addPitch = 0.025f;
@@ -140,9 +140,25 @@ namespace Pipeline_test
             {
                 availableShips.Add(ship);
                 busyShips.Remove(ship);
+
+                SpawnShip(random, content);
             }
             tempShips.Clear();
 
+            if(tempTimer >= spawnTime)
+            {
+                foreach (Ship ship in busyShips)
+                {
+                    if (ship != playerShip)
+                    {
+                        ship.Yaw = random.Next(0, 1000);
+                        ship.Roll = random.Next(0, 1000);
+                        ship.Pitch = random.Next(0, 1000);
+                    }
+                }
+
+                tempTimer -= spawnTime;
+            }
 
             //Memory stuff
             MemoryDebug.Update();            
