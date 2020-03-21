@@ -36,22 +36,22 @@ namespace Pipeline_test
 
         public static void LoadContent(ContentManager content,string fontName)
         {
-            //font = content.Load<SpriteFont>(fontName);
+            font = content.Load<SpriteFont>(fontName);
         }
 
         public static void AddScore(float scoreToAdd)
         {
-            //score += scoreToAdd;
-            //MessageBus.InsertNewMessage(new ConsoleMessage("Score : " + score));
+            score += scoreToAdd;
+            MessageBus.InsertNewMessage(new ConsoleMessage("Score : " + score));
         }
 
         public static void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Begin();
+            spriteBatch.Begin();
 
-            //spriteBatch.DrawString(font, "Score", new Vector2(100, 100), Color.Black);
+            spriteBatch.DrawString(font, "Score :" + score, new Vector2(100, 100), Color.Black);
 
-            //spriteBatch.End();
+            spriteBatch.End();
         }
 
     }

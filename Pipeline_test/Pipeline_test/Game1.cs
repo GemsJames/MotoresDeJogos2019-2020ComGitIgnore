@@ -90,7 +90,7 @@ namespace Pipeline_test
             //HazardManager.LoadContent(Content, random);
             GenericManager<Hazard>.LoadContent(Content, random);
             ExplosionManager.LoadContent(Content);
-            ScoreManager.LoadContent(Content, "nome");
+            ScoreManager.LoadContent(Content, "font");
         }
 
         protected override void UnloadContent()
