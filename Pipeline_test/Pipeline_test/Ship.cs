@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace Pipeline_test
 {
     [Serializable()]
-    public class Ship : IExplodable
+    public class Ship : IExplodable, ICollidable
     {
         #region Variables
 
@@ -53,7 +53,7 @@ namespace Pipeline_test
             get { return maxSpeed; }
             set { maxSpeed = value; }
         }
-        
+
         private bool alive;
 
         public bool Alive
@@ -123,7 +123,6 @@ namespace Pipeline_test
 
 
         #endregion
-
         public Ship()
         {
             this.position = Vector3.Zero;
@@ -205,7 +204,7 @@ namespace Pipeline_test
 
         public void Explode()
         {
-            ExplosionManager.SpawnExplosion(position,explosionSize);
+            ExplosionManager.SpawnExplosion(position, explosionSize);
             alive = false;
         }
 
