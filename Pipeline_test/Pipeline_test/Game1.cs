@@ -90,6 +90,7 @@ namespace Pipeline_test
             //HazardManager.LoadContent(Content, random);
             GenericManager<Hazard>.LoadContent(Content, random);
             ExplosionManager.LoadContent(Content);
+            ScoreManager.LoadContent(Content, "nome");
         }
 
         protected override void UnloadContent()
@@ -140,6 +141,7 @@ namespace Pipeline_test
             //HazardManager.Draw();
             GenericManager<Hazard>.Draw();
             ExplosionManager.Draw();
+            ScoreManager.Draw(spriteBatch);
 
             //DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
 
