@@ -9,9 +9,9 @@ namespace Pipeline_test.Observers
 {
     public class MessageObserver : Observer
     {
-        public override void OnNotify(Ship ship, ObserverActions.Action action)
+        public override void OnNotify(float valor, ObserverActions.Action action)
         {
-            MessageBus.InsertNewMessage(new ConsoleMessage("esta ship colidiu " + ship));
+            MessageBus.InsertNewMessage(new ConsoleMessage("coisas e tal" + valor));
         }
     }
 }

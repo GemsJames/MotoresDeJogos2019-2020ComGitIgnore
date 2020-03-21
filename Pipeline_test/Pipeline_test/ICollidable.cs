@@ -10,18 +10,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pipeline_test
 {
-    interface IExplodable
+    public interface ICollidable
     {
-        Vector3 Position
+        BoundingSphere BoundingSphere
         {
             get;
             set;
         }
 
-        float ExplosionSize
-        {
-            get;
-            set;
-        }
+        void Explode();
     }
 }

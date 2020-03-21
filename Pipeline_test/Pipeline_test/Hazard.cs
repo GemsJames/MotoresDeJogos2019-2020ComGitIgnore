@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pipeline_test
 {
-    public class Hazard : IExplodable
+    public class Hazard : IExplodable, ICollidable
     {
         #region Variables
 
@@ -199,6 +199,7 @@ namespace Pipeline_test
         {
             ExplosionManager.SpawnExplosion(position, explosionSize);
             alive = false;
+
         }
 
         public void Update(GameTime gameTime)

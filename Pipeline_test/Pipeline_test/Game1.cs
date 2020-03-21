@@ -25,7 +25,9 @@ namespace Pipeline_test
 
         InputManager player1InputManager;
         List<Command> commands;
-        
+
+        List<ICollidable> collidables;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -62,6 +64,7 @@ namespace Pipeline_test
             skybox = new Skybox(Content);
             player1InputManager = new InputManager(Keys.Space, Keys.A, Keys.D, Keys.E, Keys.W, Keys.S, Keys.LeftShift, Keys.F1, Keys.F2);
             CollisionManager.Initialize();
+            collidables = new List<ICollidable>();
 
             ExplosionManager.Initialize();
 
@@ -106,8 +109,14 @@ namespace Pipeline_test
 
             ExplosionManager.Update(gameTime);
 
-            CollisionManager.DetectCollisions(ShipManager.BusyShips,ShipManager.BusyShips);
-            CollisionManager.DetectCollisions(ShipManager.BusyShips, GenericManager<Hazard>.BusyHazards);
+            //CollisionManager.DetectCollisions(ShipManager.BusyShips,ShipManager.BusyShips);
+            //CollisionManager.DetectCollisions(ShipManager.BusyShips, GenericManager<Hazard>.BusyHazards);
+            CollisionManager.collidablesTodos.Clear();
+
+            CollisionManager.AddCollidableList(ShipManager.BusyShips);
+            CollisionManager.AddCollidableList(GenericManager<Hazard>.BusyHazards);
+            CollisionManager.DetectCollisions(CollisionManager.collidablesTodos, ShipManager.PlayerShip);
+
 
             commands = player1InputManager.UpdateInputManager();
             foreach(Command command in commands)

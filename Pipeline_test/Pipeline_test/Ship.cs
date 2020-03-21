@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Pipeline_test
 {
-    public class Ship : IExplodable
+    public class Ship : IExplodable, ICollidable
     {
         #region Variables
 

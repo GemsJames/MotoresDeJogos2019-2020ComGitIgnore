@@ -8,6 +8,6 @@ namespace Pipeline_test.Observers
 {
     public abstract class Observer
     {
-        public abstract void OnNotify(Ship ship, ObserverActions.Action action);
+        public abstract void OnNotify(float valor, ObserverActions.Action action);
     }
 }

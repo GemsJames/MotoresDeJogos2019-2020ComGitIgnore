@@ -15,6 +15,8 @@ namespace Pipeline_test
         public static MessageObserver messageObserver = new MessageObserver();
         public static ExplosionObserver explosionObserver = new ExplosionObserver();
 
+        public static List<ICollidable> collidablesTodos = new List<ICollidable>();
+
         public static void Initialize()
         {
             AddObserver(messageObserver);
@@ -26,11 +28,37 @@ namespace Pipeline_test
             observers.Add(observer);
         }
 
+        public static void AddCollidableList(IEnumerable<ICollidable> toAdd)
+        {
+            collidablesTodos.AddRange(toAdd);
+        }
+
         public static void Notify(Ship ship)
         {
             for (int i = 0; i < observers.Count; i++)
             {
-                observers[i].OnNotify(ship, ObserverActions.Action.Explosion);
+                observers[i].OnNotify(10, ObserverActions.Action.Explosion);
+            }
+        }
+
+        public static void DetectCollisions(List<ICollidable> collidables, ICollidable player)
+        {
+            foreach(ICollidable collidable in collidables)
+            {
+                foreach(ICollidable collidable2 in collidables)
+                {
+                    if (collidable.BoundingSphere.Intersects(collidable2.BoundingSphere) && collidable != collidable2)
+                    {
+                        if (collidable != player)
+                        {
+                            collidable.Explode();
+                        }
+                        if (collidable2 != player)
+                        {
+                            collidable2.Explode();
+                        }
+                    }
+                }
             }
         }
 
