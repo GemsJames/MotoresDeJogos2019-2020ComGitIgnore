@@ -14,15 +14,25 @@ namespace Pipeline_test
 
         public static void Save()
         {
+            
             SaveList(ShipManager.AvailableShips);
             SaveList(ShipManager.BusyShips);
+            SaveShip(ShipManager.PlayerShip);
+        }
+
+        public static void SaveShip(Ship ship)
+        {
+            FileStream stream = File.Create("saveFile2.txt");
+            System.Xml.Serialization.XmlSerializer formatter = new System.Xml.Serialization.XmlSerializer(typeof(Ship));
+            formatter.Serialize(stream, ship);
+            stream.Close();
         }
 
         public static void SaveList(List<Ship> shipList)
         {
-            //save
-           FileStream stream = File.Create("saveFile.txt");
-            // var formatter = new BinaryFormatter();
+      
+            FileStream stream = File.Create("saveFile.txt");
+
             List<Ship> auxList = new List<Ship>();
 
             foreach (Ship ship in shipList)
@@ -34,23 +44,27 @@ namespace Pipeline_test
             stream.Close();
 
 
-            //foreach (Ship ship in ShipManager.BusyShips)
-            //{
-            //    System.Xml.Serialization.XmlSerializer formatter = new System.Xml.Serialization.XmlSerializer(ship.GetType());
-            //    formatter.Serialize(stream, ship);
-            //}
          
-       }
+        }
        public static void Load()
-        {
+       {
             LoadList(ShipManager.AvailableShips);
             LoadList(ShipManager.BusyShips);
+            LoadShip(ShipManager.PlayerShip);
+       }
+
+        public static void LoadShip(Ship ship)
+        {
+            FileStream stream = File.OpenRead("saveFile2.txt");
+            System.Xml.Serialization.XmlSerializer disformatter = new System.Xml.Serialization.XmlSerializer(typeof(Ship));
+
+            ship = (Ship)disformatter.Deserialize(stream);
         }
 
-       public static void LoadList(List<Ship> shipList)
+        public static void LoadList(List<Ship> shipList)
         {
             
-            MessageBus.InsertNewMessage(new ConsoleMessage("Loaded"));
+            
             FileStream stream = File.OpenRead("saveFile.txt");
 
            
@@ -62,9 +76,6 @@ namespace Pipeline_test
            
             shipList.Clear();
             shipList.AddRange(other);
-            // newBusyShips = disformatter.Deserialize(stream);
-            //ShipManager.BusyShips (disformatter.Deserialize(stream)
-
             stream.Close();
         }
 
