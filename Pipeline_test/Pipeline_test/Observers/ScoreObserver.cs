@@ -1,16 +1,19 @@
-﻿using System;
+﻿using AlienGrab;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Pipeline_test.Messages;
+using Pipeline_test.Commands;
 
 namespace Pipeline_test.Observers
 {
-    class ScoreObserver : Observer
+    public class ScoreObserver : Observer
     {
         public override void OnNotify(float valor, ObserverActions.Action action)
         {
-
+            ScoreManager.AddScore(valor);
         }
     }
 }

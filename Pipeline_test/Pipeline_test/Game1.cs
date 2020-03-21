@@ -68,6 +68,8 @@ namespace Pipeline_test
 
             ExplosionManager.Initialize();
 
+            ScoreManager.Initialize();
+
             MessageBus.InsertNewMessage(new ConsoleMessage("Game Initiated!"));
 
             base.Initialize();
