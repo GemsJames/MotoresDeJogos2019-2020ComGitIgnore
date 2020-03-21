@@ -60,7 +60,7 @@ namespace Pipeline_test
 
             ship = (Ship)disformatter.Deserialize(stream);
 
-            ShipManager.SpawnPlayer();
+            ShipManager.SpawnPlayer(ship.Position);
             stream.Close();
         }
 
