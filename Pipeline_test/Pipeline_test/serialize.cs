@@ -15,16 +15,20 @@ namespace Pipeline_test
         public static void Save()
         {
             
-            SaveList(ShipManager.AvailableShips);
-            SaveList(ShipManager.BusyShips);
+            SaveListShip(ShipManager.AvailableShips);
+            SaveListShip(ShipManager.BusyShips);
             SaveShip(ShipManager.PlayerShip);
+            SaveListHazard(GenericManager<Hazard>.AvailableHazards);
+            SaveListHazard(GenericManager<Hazard>.BusyHazards);
         }
 
         public static void Load()
         {
-            LoadList(ShipManager.AvailableShips);
-            LoadList(ShipManager.BusyShips);
+            LoadListShip(ShipManager.AvailableShips);
+            LoadListShip(ShipManager.BusyShips);
             LoadShip(ShipManager.PlayerShip);
+            LoadListHazard(GenericManager<Hazard>.AvailableHazards);
+            LoadListHazard(GenericManager<Hazard>.BusyHazards);
         }
 
         public static void SaveShip(Ship ship)
@@ -36,7 +40,7 @@ namespace Pipeline_test
 
         }
 
-        public static void SaveList(List<Ship> shipList)
+        public static void SaveListShip(List<Ship> shipList)
         {
       
             FileStream stream = File.Create("saveFile.txt");
@@ -54,6 +58,24 @@ namespace Pipeline_test
 
          
         }
+        public static void SaveListHazard(List<Hazard> hazardList)
+        {
+
+            FileStream stream = File.Create("saveFile3.txt");
+
+            List<Hazard> auxList = new List<Hazard>();
+
+            foreach (Hazard hazard in hazardList)
+            {
+                auxList.Add(hazard);
+            }
+            System.Xml.Serialization.XmlSerializer formatter = new System.Xml.Serialization.XmlSerializer(typeof(List<Hazard>));
+            formatter.Serialize(stream, auxList);
+            stream.Close();
+
+
+
+        }
 
         public static void LoadShip(Ship ship)
         {
@@ -63,7 +85,7 @@ namespace Pipeline_test
             ship = (Ship)disformatter.Deserialize(stream);
         }
 
-        public static void LoadList(List<Ship> shipList)
+        public static void LoadListShip(List<Ship> shipList)
         {
             
             
@@ -78,6 +100,24 @@ namespace Pipeline_test
            
             shipList.Clear();
             shipList.AddRange(other);
+            stream.Close();
+        }
+
+        public static void LoadListHazard(List<Hazard> hazardList)
+        {
+
+
+            FileStream stream = File.OpenRead("saveFile3.txt");
+
+
+            System.Xml.Serialization.XmlSerializer disformatter = new System.Xml.Serialization.XmlSerializer(typeof(List<Hazard>));
+
+
+            List<Hazard> other = (List<Hazard>)disformatter.Deserialize(stream);
+
+
+            hazardList.Clear();
+            hazardList.AddRange(other);
             stream.Close();
         }
 
