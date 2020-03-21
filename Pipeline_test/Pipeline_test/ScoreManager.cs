@@ -49,7 +49,11 @@ namespace Pipeline_test
         {
             //spriteBatch.Begin();
 
+<<<<<<< HEAD
             //spriteBatch.DrawString(font, "Score", new Vector2(100, 100), Color.Black);
+=======
+            spriteBatch.DrawString(font, "Score :" + score, new Vector2(100, 100), Color.Black);
+>>>>>>> master
 
             //spriteBatch.End();
         }
